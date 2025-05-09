@@ -1,8 +1,15 @@
 // Φορτώνουμε τις απαραίτητες βιβλιοθήκες
 const express = require('express');
 const { readFile } = require('fs').promises;
+const path = require('path');
 
 const app = express();
+
+//Για την χρήση εικόνων απο τον φάκελο images
+app.use('/images', express.static('images'));
+
+// Εξυπηρέτηση όλων των αρχείων από τον τρέχοντα φάκελο
+app.use(express.static(path.join(__dirname)));
 
 // Ρούτα για το "/"
 app.get('/', async (request, response) => {
