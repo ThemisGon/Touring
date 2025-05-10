@@ -1,6 +1,7 @@
 body{
-    font-family: sans-serif;
-    text-align: center;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: var(--bs-primary-bg-subtle);
 }
 .logo {
   width: 40px;
@@ -97,4 +98,9 @@ body{
   margin-top: 6px;
   font-size: 0.9rem;
   color: inherit;
+}
+
+.images{
+  width: 650px;
+  height: 350px;
 }
