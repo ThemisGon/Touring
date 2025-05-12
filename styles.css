@@ -104,3 +104,12 @@ body{
   width: 650px;
   height: 350px;
 }
+
+.caption-bold {
+  font-weight: bold;
+}
+
+/* Ομοιόμορφη απόσταση μεταξύ των στοιχείων της navbar */
+.navbar-nav {
+  gap: 32px; 
+}
