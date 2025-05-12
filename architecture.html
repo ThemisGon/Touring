@@ -98,30 +98,32 @@ Equally impressive are the beautiful mansions that can be found around the islan
                 <img class="img-fluid" src="images/stone.jpg" alt="Touring Logo">
                 <h5 id="caption" class="card-title caption-bold" style="color: gray;">Korthi Stone structures</h5>
                 
-                <br><br>
-                
-                <div class="card mb-4 shadow-sm border-1 rounded">
-                  <div class="row g-0 align-items-center">
-                    <!-- Κείμενο αριστερά -->
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="fw-bold text-secondary">Andros from the Greek Revolution and Beyond</h5>
-                        <p class="card-text">
-                          On May 10, 1821, <b>Theophilos Kairis</b>, a pioneer of the Greek Enlightenment, raised the banner of the Revolution,
-                          marking the beginning of modern history. Thanks to its powerful shipping industry and the foresight of shipowners who invested
-                          early in steam navigation, Andros experienced significant economic prosperity. Notably, <b>Dimitris Moraitis</b> from Andros
-                          inaugurated the <b>Greece–North America</b> shipping route in the early 20th century. By 1939, Andros ranked second after
-                          Piraeus in ship registrations. However, the island suffered losses in both World Wars, including significant casualties and
-                          shipwrecks. <b>Chora</b> was <b>bombed multiple times</b> in 1944.
-                        </p>
+                <div class="container my-5">
+                  <h4 class="text-center mb-3" style="color: gray;">Here is a challenge for you<br><b>Drag and Drop the pieces to create the tower!</b></h4>
+                  <div class="row justify-content-center align-items-start">
+                    <div class="col-md-7">
+                      <canvas id="puzzleCanvas" class="border rounded shadow w-100"></canvas>
+                      <div class="text-center mt-3">
+                        <button id="resetBtn" class="btn btn-secondary px-4">Start Again</button>
                       </div>
                     </div>
-
-                    <!-- Εικόνα δεξιά -->
                     <div class="col-md-4 text-center">
-                      <img src="images/kairis.jpg" class="img-fluid rounded shadow" alt="Greek Revolution Exhibit">
-                      <p class="text-center text-muted fst-italic mt-2">Theophilos Kairis, one of the pioneers of the Modern Greek Enlightenment</p>
+                      <h6 class="mb-2" style="color: gray;">Finished Image:</h6>
+                      <img src="images/pyrgos.jpg" class="img-fluid rounded shadow" style="max-height: 250px;">
                     </div>
+                  </div>
+                </div>
+
+                <h5 style="color: gray;"> <b><u>Overview of the island</u></b></h5>
+                <p>With it's unique architecture, <b>Andros</b>, is truly a remarkable island that attracts tourists from all around the world. <br>Still don't believe us? Watch the video below to get the full expirence:</p>
+                
+                <div class="card mb-4 shadow-sm border-1 rounded">
+                  <div class="ratio ratio-16x9" style="max-width: 100%; height: 600px;">
+                    <iframe 
+                      src="https://www.youtube.com/embed/_yAmM-Ysl1U" 
+                      title="YouTube video"
+                      allowfullscreen>
+                    </iframe>
                   </div>
                 </div>
                 
@@ -161,8 +163,107 @@ Equally impressive are the beautiful mansions that can be found around the islan
           document.getElementById("caption").innerText = slides[currentIndex].caption;
           };
         };
-      </script>
+      /*Puzzle*/
+      const rows = 3, cols = 3;
+  const canvas = document.getElementById('puzzleCanvas');
+  const ctx = canvas.getContext('2d');
+  const img = new Image();
+  img.src = 'images/pyrgos.jpg';
 
+  let pieces = [], pieceW, pieceH, selected = null;
+
+  img.onload = () => {
+    canvas.width = 600;
+    canvas.height = 600;
+    pieceW = canvas.width / cols;
+    pieceH = canvas.height / rows;
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        pieces.push({
+          sx: x * (img.width / cols),
+          sy: y * (img.height / rows),
+          x: Math.random() * (canvas.width - pieceW),
+          y: Math.random() * (canvas.height - pieceH),
+          correctX: x * pieceW,
+          correctY: y * pieceH
+        });
+      }
+    }
+    draw();
+  };
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const p of pieces) {
+      ctx.drawImage(img, p.sx, p.sy, img.width / cols, img.height / rows, p.x, p.y, pieceW, pieceH);
+      ctx.strokeRect(p.x, p.y, pieceW, pieceH);
+    }
+  }
+
+  function checkSolved() {
+    return pieces.every(p =>
+      Math.abs(p.x - p.correctX) < 5 && Math.abs(p.y - p.correctY) < 5
+    );
+  }
+
+  function launchConfetti() {
+    const duration = 2 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 25, spread: 360, ticks: 60, zIndex: 999 };
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) return clearInterval(interval);
+
+      confetti(Object.assign({}, defaults, { origin: { x: 0.1, y: 0.5 } }));
+      confetti(Object.assign({}, defaults, { origin: { x: 0.9, y: 0.5 } }));
+    }, 200);
+  }
+
+  canvas.addEventListener('mousedown', e => {
+    const { offsetX, offsetY } = e;
+    for (const p of pieces) {
+      if (offsetX >= p.x && offsetX <= p.x + pieceW &&
+          offsetY >= p.y && offsetY <= p.y + pieceH) {
+        selected = p;
+        selected.offsetX = offsetX - p.x;
+        selected.offsetY = offsetY - p.y;
+        break;
+      }
+    }
+  });
+
+  canvas.addEventListener('mousemove', e => {
+    if (selected) {
+      selected.x = e.offsetX - selected.offsetX;
+      selected.y = e.offsetY - selected.offsetY;
+      draw();
+    }
+  });
+
+  canvas.addEventListener('mouseup', () => {
+    if (selected) {
+      if (Math.abs(selected.x - selected.correctX) < 15 &&
+          Math.abs(selected.y - selected.correctY) < 15) {
+        selected.x = selected.correctX;
+        selected.y = selected.correctY;
+      }
+      selected = null;
+      draw();
+      if (checkSolved()) launchConfetti();
+    }
+  });
+      document.getElementById('resetBtn').addEventListener('click', () => {
+      for (const p of pieces) {
+        p.x = Math.random() * (canvas.width - pieceW);
+        p.y = Math.random() * (canvas.height - pieceH);
+      }
+        draw();
+      });
+      </script>
+      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
