@@ -73,112 +73,71 @@
         </div>
       </nav>
       <br>
-      <img class="logo" src="images/treasures.png" alt="Login Icon">
-      <h2 style="color: gray;"> <b>Treasures</b></h2>
+      <img class="logo" src="images/quiz.png" alt="Login Icon">
+      <h2 style="color: gray;"> <b>Quiz</b></h2>
       <div class="container my-5">
         <div class="row justify-content-center">
           <div class="col-md-12 p-4 bg-light rounded shadow mx-auto">
             <form>
               <div class="mb-3">
-                <h5 style="color: gray;"> Are you ready to unveal the tresures of <b>Andros</b>?</h5>
-                <p>Hidden in the heart of the Aegean lies an island of quiet grace and timeless spirit <b>Andros</b>. For those who walk its winding paths and stone-paved streets, the island does not merely show its beauty. It whispers its stories.</p>
-                <h5 style="color: gray;"> <b>The Statue Of Latent Seaman</b></h5>
-                <p><b>One such story stands tall at the edge of Chora: the Statue of the Unknown Sailor. Facing the sea with stoic silence, the bronze figure honors all those lost to the waves, nameless yet never forgotten. It is not just a monument, but a sentinel—guarding the memory of sacrifice.</b></p>
-                <div class="card mb-4 shadow-sm border-1 rounded">
-                  <div class="row g-0 align-items-center">
-                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img src="images/an3.jpg" class="d-block w-100" alt="Andros Image 1">
+                <h5 style="color: gray;"> <b>Let's test your knowledge</b></h5>
+                <!-- Ερώτηση Paths -->
+                <div class="question category-Paths" style="display: none;">
+                    <p><b>Which of the following is a popular hiking destination in Andros?</b></p>
+                    <div><input type="radio" name="q1" value="a"> Kato Kastro</div>
+                    <div><input type="radio" name="q1" value="b"> Pythara Waterfalls</div>
+                    <div><input type="radio" name="q1" value="c"> Agios Petros Tower</div>
+                    <div><input type="radio" name="q1" value="d"> Paleopolis Museum</div>
+                </div>
+
+                <!-- Ερώτηση History -->
+                <div class="question category-History" style="display: none;">
+                    <p><b>Who raised the banner of the Greek Revolution in Andros in 1821?</b></p>
+                    <div><input type="radio" name="q2" value="a"> Lambros Katsonis</div>
+                    <div><input type="radio" name="q2" value="b"> Theophilos Kairis</div>
+                    <div><input type="radio" name="q2" value="c"> Dionysios Solomos</div>
+                    <div><input type="radio" name="q2" value="d"> Dimitris Moraitis</div>
+                </div>
+
+                
+
+                <div class="container my-5">
+                    <h4 class="text-center text-secondary">Select categories to begin the quiz:</h4>
+                    <div class="text-center mb-3">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input quiz-option" type="checkbox" value="History" id="history">
+                        <label class="form-check-label" for="history">History</label>
                         </div>
-                        <div class="carousel-item">
-                          <img src="images/an2.jpg" class="d-block w-100" alt="Andros Image 2">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input quiz-option" type="checkbox" value="Architecture" id="architecture">
+                        <label class="form-check-label" for="architecture">Architecture</label>
                         </div>
-                        <div class="carousel-item">
-                          <img src="images/an1.jpg" class="d-block w-100" alt="Andros Image 3">
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input quiz-option" type="checkbox" value="Treasures" id="treasures">
+                        <label class="form-check-label" for="treasures">Treasures</label>
                         </div>
-                      </div>
-                      <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                      </button>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input quiz-option" type="checkbox" value="Paths" id="paths">
+                        <label class="form-check-label" for="paths">Paths</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="mode" value="random" id="randomMode">
+                        <label class="form-check-label" for="randomMode">Random</label>
+                        </div>
                     </div>
 
-                  </div>
+                    <div class="text-center mb-4">
+                        <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
+                    </div>
+
+                    <form id="quizContainer" class="p-4 bg-light rounded shadow" style="display: none;">
+                        <!-- Εδώ θα εμφανιστούν δυναμικά οι ερωτήσεις -->
+                    </form>
                 </div>
 
 
-
-                <h5 style="color: gray;"> <b>The Bridge of Love</b></h5>
-                <p><b>Not far from there, tucked beneath trees and embraced by nature, is the Bridge of Love. An old stone arch reaching over a dry riverbed, it carries the name of lovers past and present. Couples still visit it, making wishes or promises beneath its arch, as if the stones remember every whispered vow.</b></p>
-
-                <div class="card mb-4 shadow-sm border-1 rounded">
-                  <div class="row g-0 align-items-center">
-                    <div id="imageCarousel1" class="carousel slide" data-bs-ride="carousel">
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img src="images/bol1.jpg" class="d-block w-100" alt="Andros Image 1">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="images/bol2.jpg" class="d-block w-100" alt="Andros Image 2">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="images/bol3.jpeg" class="d-block w-100" alt="Andros Image 3">
-                        </div>
-                      </div>
-                      <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel1" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel1" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                      </button>
-                    </div>
-
-                  </div>
-                </div>
-                <h5 style="color: gray;"> <b>Old Woman's Beach the jump</b></h5>
-                <p><b>During the Ottoman occupation, legend has it that the conquerors were unable to seize the fortress that stood proud on the island. Desperate, they turned to deceit. An old woman and her pregnant daughter approached the fortress, pleading for refuge. The locals, moved by their plight, allowed them inside.
-                But as night fell, treachery struck. The old woman secretly opened a gate, allowing the Turkish forces to storm the fortress. The invaders massacred the people who had sought protection within its walls.
-                Overcome with shame and regret for the devastation she had caused, the old woman climbed a towering cliff and, in despair, leapt into the sea. According to the locals, the very rock where she fell turned to stone.
-                Today, at the beach known as Grias to Pidima — The Old Woman’s Leap — a striking, towering rock stands by the shore. From a certain angle, it eerily resembles the profile of an old woman wearing her traditional headscarf, forever frozen in time.</b></p>
-                <div class="card mb-4 shadow-sm border-1 rounded">
-                  <div class="row g-0 align-items-center">
-                    <div id="imageCarousel2" class="carousel slide" data-bs-ride="carousel">
-                      <div class="carousel-inner">
-                        <div class="carousel-item active">
-                          <img src="images/gp1.jpg" class="d-block w-100" alt="Andros Image 1">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="images/gp3.jpg" class="d-block w-100" alt="Andros Image 2">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="images/gp2.jpg" class="d-block w-100" alt="Andros Image 3">
-                        </div>
-                        <div class="carousel-item">
-                          <img src="images/gp4.jpg" class="d-block w-100" alt="Andros Image 4">
-                        </div>
-                      </div>
-                      <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel2" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel2" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                      </button>
-                    </div>
-
-                  </div>
-                </div>
-                <br>
-
-                <div class="container mt-5">
+                
+                
   <h4 class="text-center mb-4" style="color: gray;">
     Here is a challenge for you<br>
     <b>Match the caption with the correct image!</b>
@@ -312,6 +271,92 @@
     }, 200);
   }
       </script>
+      <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const quizId = urlParams.get("id");
+
+                    // Απόκρυψη όλων
+                    document.querySelectorAll(".question").forEach(el => el.style.display = "none");
+
+                    // Εμφάνιση μόνο όσων ανήκουν στην κατηγορία
+                    if (quizId) {
+                    document.querySelectorAll(".category-" + quizId).forEach(el => el.style.display = "block");
+                    }
+                });
+            </script>
+            <script>
+        const questions = {
+            History: [
+            {
+                q: "Who raised the banner of the Greek Revolution in Andros in 1821?",
+                a: ["Lambros Katsonis", "Theophilos Kairis", "Dionysios Solomos", "Dimitris Moraitis"],
+                correct: 1
+            }
+            ],
+            Architecture: [
+            {
+                q: "What is a key feature of Andros' traditional architecture?",
+                a: ["Neoclassical roofs", "Stone drywalls", "Domes", "Concrete balconies"],
+                correct: 1
+            }
+            ],
+            Treasures: [
+            {
+                q: "Where is the Hermes of Andros housed?",
+                a: ["Athens Museum", "Delphi", "Andros Museum", "Delos"],
+                correct: 2
+            }
+            ],
+            Paths: [
+            {
+                q: "Which of the following is a popular hiking destination in Andros?",
+                a: ["Kato Kastro", "Pythara Waterfalls", "Agios Petros Tower", "Paleopolis Museum"],
+                correct: 1
+            }
+            ]
+        };
+
+        function startQuiz() {
+            const container = document.getElementById("quizContainer");
+            container.innerHTML = ""; // clear previous quiz
+            container.style.display = "block";
+
+            const selected = [...document.querySelectorAll('.quiz-option:checked')].map(el => el.value);
+            const randomMode = document.getElementById("randomMode").checked;
+
+            let quizQuestions = [];
+
+            if (randomMode || selected.length === 0) {
+            // Πάρε 1 random ερώτηση από κάθε κατηγορία
+            for (const cat in questions) {
+                const qList = questions[cat];
+                const randomIndex = Math.floor(Math.random() * qList.length);
+                quizQuestions.push(qList[randomIndex]);
+            }
+            } else {
+            selected.forEach(cat => {
+                quizQuestions = quizQuestions.concat(questions[cat]);
+            });
+            }
+
+            // Προβολή ερωτήσεων
+            quizQuestions.forEach((q, index) => {
+            const qBlock = document.createElement("div");
+            qBlock.className = "mb-4";
+            qBlock.innerHTML = `
+                <p><b>Q${index + 1}. ${q.q}</b></p>
+                ${q.a.map((opt, i) =>
+                `<div>
+                    <input type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
+                    <label for="q${index}a${i}">${opt}</label>
+                </div>`).join('')}
+            `;
+            container.appendChild(qBlock);
+            });
+        }
+      </script>
+
 
       <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
