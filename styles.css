@@ -113,3 +113,29 @@ body{
 .navbar-nav {
   gap: 32px; 
 }
+
+/*Drag and Drop παιχνίδι */
+.drop-zone {
+      border: 2px dashed #ccc;
+      border-radius: 6px;
+      min-height: 50px;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #f8f9fa;
+    }
+    .draggable {
+      padding: 6px 12px;
+      background-color: #0d6efd;
+      color: white;
+      border-radius: 4px;
+      cursor: grab;
+      margin-bottom: 10px;
+    }
+    .drop-zone.correct {
+      border-color: green;
+      background-color: #d4edda;
+    }
+    .drop-zone.wrong {
+      border-color: red;
+      background-color: #f8d7da;
+    }

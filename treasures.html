@@ -176,33 +176,42 @@
 
                   </div>
                 </div>
-                <br><br>
+                <br>
 
-                <p>On May 10, 1821, <b>Theophilos Kairis</b>, a pioneer of the Greek Enlightenment, raised the banner of the Revolution, marking the beginning of modern history. Thanks to its powerful shipping industry and the foresight of shipowners who invested early in steam navigation, Andros experienced significant economic prosperity. Notably, <b>Dimitris Moraitis</b> from Andros inaugurated the <b>Greece-North America</b> shipping route in the early 20th century. By 1939, Andros ranked second after Piraeus in ship registrations. However, the island suffered losses in both World Wars, including significant casualties and shipwrecks. <b>Chora</b> was <b>bombed multiple times</b> in 1944.</p>
-                <div class="card mb-4 shadow-sm border-1 rounded">
-                  <div class="row g-0 align-items-center">
-                    <!-- Κείμενο αριστερά -->
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="fw-bold text-secondary">Andros from the Greek Revolution and Beyond</h5>
-                        <p class="card-text">
-                          On May 10, 1821, <b>Theophilos Kairis</b>, a pioneer of the Greek Enlightenment, raised the banner of the Revolution,
-                          marking the beginning of modern history. Thanks to its powerful shipping industry and the foresight of shipowners who invested
-                          early in steam navigation, Andros experienced significant economic prosperity. Notably, <b>Dimitris Moraitis</b> from Andros
-                          inaugurated the <b>Greece–North America</b> shipping route in the early 20th century. By 1939, Andros ranked second after
-                          Piraeus in ship registrations. However, the island suffered losses in both World Wars, including significant casualties and
-                          shipwrecks. <b>Chora</b> was <b>bombed multiple times</b> in 1944.
-                        </p>
-                      </div>
-                    </div>
+                <div class="container mt-5">
+  <h4 class="text-center mb-4" style="color: gray;">
+    Here is a challenge for you<br>
+    <b>Match the caption with the correct image!</b>
+  </h4>
 
-                    <!-- Εικόνα δεξιά -->
-                    <div class="col-md-4 text-center">
-                      <img src="images/kairis.jpg" class="img-fluid rounded shadow" alt="Greek Revolution Exhibit">
-                      <p class="text-center text-muted fst-italic mt-2">Theophilos Kairis, one of the pioneers of the Modern Greek Enlightenment</p>
-                    </div>
-                  </div>
-                </div>
+  <div class="card p-4 shadow-sm">
+    
+    <!-- Εικόνες και περιοχές απόθεσης -->
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <img src="images/bol1.jpg" class="img-fluid rounded shadow" alt="The Bridge of Love">
+        <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Bridge of Love"></div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <img src="images/an1.jpg" class="img-fluid rounded shadow" alt="The Statue Of Latent Seaman">
+        <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Statue Of Latent Seaman"></div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <img src="images/gp1.jpg" class="img-fluid rounded shadow" alt="Old Woman's Beach the jump">
+        <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="Old Woman's Beach the jump"></div>
+      </div>
+    </div>
+
+    <!-- Λεζάντες προς μεταφορά -->
+    <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+      <div class="draggable" draggable="true" ondragstart="drag(event)" id="Old Woman's Beach the jump">Old Woman's Beach the jump</div>
+      <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Bridge of Love">The Bridge of Love</div>
+      <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Statue Of Latent Seaman">The Statue Of Latent Seaman</div>
+    </div>
+
+  </div>
+</div>
+
                 
                 <div class="container my-4">
                   <div class="d-flex justify-content-end">
@@ -210,7 +219,7 @@
                       <button style="color: white;" type="button" class="btn btn-info mt-2" onclick="nextSlide()"><b>Test</b></button>
                       <img src="images/quiz.png" alt="Quiz icon" style="width: 50px;">
                       <p class="text-muted fst-italic mb-0" style="font-size: 0.9rem;">
-                        Let's see what you've learned about the History of Andros!
+                        Let's see what you've learned about the Treasures of Andros!
                       </p>
                     </div>
                   </div>
@@ -239,8 +248,72 @@
           document.getElementById("caption").innerText = slides[currentIndex].caption;
           };
         };
+
+      function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    const draggedId = ev.dataTransfer.getData("text");
+    const dropZone = ev.target;
+
+    if (dropZone.classList.contains("drop-zone") && dropZone.children.length === 0) {
+      const expected = dropZone.getAttribute("data-expected");
+
+      const draggedElement = document.getElementById(draggedId);
+      dropZone.appendChild(draggedElement);
+
+      if (draggedId === expected) {
+        dropZone.classList.add("correct");
+        dropZone.classList.remove("wrong");
+      } else {
+        dropZone.classList.add("wrong");
+        dropZone.classList.remove("correct");
+      }
+      
+      checkAllCorrect();
+
+    }
+  }
+  function checkAllCorrect() {
+    const dropZones = document.querySelectorAll('.drop-zone');
+    let allCorrect = true;
+
+    dropZones.forEach(zone => {
+      const expected = zone.getAttribute('data-expected');
+      const actual = zone.children[0]?.id;
+      if (expected !== actual) {
+        allCorrect = false;
+      }
+    });
+
+    if (allCorrect) {
+      launchConfetti();
+    }
+  }
+
+  function launchConfetti() {
+    const duration = 2 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 25, spread: 360, ticks: 60, zIndex: 999 };
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) return clearInterval(interval);
+
+      confetti(Object.assign({}, defaults, { origin: { x: 0.1, y: 0.5 } }));
+      confetti(Object.assign({}, defaults, { origin: { x: 0.9, y: 0.5 } }));
+    }, 200);
+  }
       </script>
 
+      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
