@@ -111,58 +111,34 @@
                 </div>
                 </div>
                 <div id="quizWrapper"></div> <!-- Εδώ θα μπαίνουν οι ερωτήσεις -->
-
-
-                </div>
-
-                <h4 class="text-center mb-4" style="color: gray;">
-                  Here is a challenge for you<br>
-                  <b>Match the caption with the correct image!</b>
-                </h4>
-
-                <div class="card p-4 shadow-sm">
-                  
-                  <!-- Εικόνες και περιοχές απόθεσης -->
-                  <div class="row text-center">
-                    <div class="col-md-4 mb-4">
-                      <img src="images/bol1.jpg" class="img-fluid rounded shadow" alt="The Bridge of Love">
-                      <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Bridge of Love"></div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                      <img src="images/an1.jpg" class="img-fluid rounded shadow" alt="The Statue Of Latent Seaman">
-                      <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Statue Of Latent Seaman"></div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                      <img src="images/gp1.jpg" class="img-fluid rounded shadow" alt="Old Woman's Beach the jump">
-                      <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="Old Woman's Beach the jump"></div>
-                    </div>
-                  </div>
-
-                  <!-- Λεζάντες προς μεταφορά -->
-                  <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
-                    <div class="draggable" draggable="true" ondragstart="drag(event)" id="Old Woman's Beach the jump">Old Woman's Beach the jump</div>
-                    <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Bridge of Love">The Bridge of Love</div>
-                    <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Statue Of Latent Seaman">The Statue Of Latent Seaman</div>
-                  </div>
-
-                </div>
-</div>
-                <button class="btn btn-warning" onclick="startAdaptiveQuiz()">Start Adaptive Quiz</button>
-                <div id="quizWrapper1"></div> <!-- Εδώ θα μπαίνουν οι ερωτήσεις -->
-
+                <br><br>
                 
-                <div class="container my-4">
-                  <div class="d-flex justify-content-end">
-                    <div class="p-3 border rounded bg-white text-end" style="max-width: 300px;">
-                      <button style="color: white;" type="button" class="btn btn-info mt-2" onclick="nextSlide()"><b>Test</b></button>
-                      <img src="images/quiz.png" alt="Quiz icon" style="width: 50px;">
-                      <p class="text-muted fst-italic mb-0" style="font-size: 0.9rem;">
-                        Let's see what you've learned about the Treasures of Andros!
-                      </p>
+                </div>
+                  </div>
+                  <div class="container my-5">
+                    <div class="row justify-content-center">
+                      <div class="col-md-12 p-4 bg-light rounded shadow mx-auto">
+                        <div id="quizContainer" class="p-4 bg-light rounded shadow">
+                          <div class="mb-3">
+                  <button class="btn btn-warning" onclick="startAdaptiveQuiz()">Quick Fire Questions</button>
+                  <br><br>
+                  <div id="quizWrapper1"></div> <!-- Εδώ θα μπαίνουν οι ερωτήσεις -->
+                  <br><br>
+                  <!-- Progress Bar -->
+                  <div class="progress mb-3" style="height: 25px;">
+                    <div id="adaptiveProgress" class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                        role="progressbar" style="width: 0%;">
+                      0%
                     </div>
                   </div>
-                </div>
-
+                  <br><br>
+                  <!-- Πλαίσιο για adaptive quiz -->
+                  <div id="adaptiveSummary" class="mt-4 text-center"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
           </div>
@@ -172,7 +148,13 @@
 
       <!-- Κώδικας για το slideshow-->
       <script>
-        
+      let currentLevel = "easy"; // ξεκινάμε από εύκολο
+      let correctStreak = 0;
+      let wrongStreak = 0;
+      let answeredQuestions = [];
+      var quizQuestions = [];
+      let selectedCategory = null;
+
       function allowDrop(ev) {
     ev.preventDefault();
   }
@@ -576,22 +558,72 @@
 
     const randomMode = document.getElementById("randomMode")?.checked;
 
-    let quizQuestions = [];
+    
 
     if (randomMode || selected.length === 0) {
-        for (const cat in questions) {
-            const qList = questions[cat];
-            const randomIndex = Math.floor(Math.random() * qList.length);
-            quizQuestions.push(qList[randomIndex]);
+    for (const cat in questions) {
+        const qList = questions[cat];
+        const randomLevel = Object.values(qList)[0];
+        const randomIndex = Math.floor(Math.random() * randomLevel.length);
+        quizQuestions.push(randomLevel[randomIndex]);
+    }
+} else {
+    selected.forEach(cat => {
+        const levels = questions[cat];
+        for (const level in levels) {
+            quizQuestions = quizQuestions.concat(levels[level]);
         }
-    } else {
-        selected.forEach(cat => {
-    const levels = questions[cat];
-    for (const level in levels) {
-        quizQuestions = quizQuestions.concat(levels[level]);
-    }
+    });
+}
+
+// 👉 Εδώ κάνεις μία και μοναδική εμφάνιση ερωτήσεων:
+quizQuestions.forEach((q, index) => {
+    const qBlock = document.createElement("div");
+    qBlock.className = "mb-4";
+    qBlock.innerHTML = `
+      <p><b>Q${index + 1}. ${q.q}</b></p>
+      ${q.a.map((opt, i) =>
+        `<div>
+          <input type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
+          <label for="q${index}a${i}">${opt}</label>
+        </div>`).join('')}
+    `;
+    wrapper.appendChild(qBlock);
 });
+
+// ✅ Τέλος, πρόσθεσε το κουμπί υποβολής μία φορά:
+const submitBtn = document.createElement("button");
+submitBtn.className = "btn btn-success mt-3";
+submitBtn.textContent = "Υποβολή";
+submitBtn.onclick = checkQuizAnswers;
+wrapper.appendChild(submitBtn);
+
     }
+
+    function checkQuizAnswers() {
+    const wrapper = document.getElementById("quizWrapper");
+    const allQuestions = wrapper.querySelectorAll("div.mb-4");
+    let score = 0;
+
+    allQuestions.forEach((qBlock, index) => {
+        const selected = qBlock.querySelector("input[type='radio']:checked");
+        if (selected) {
+            const isCorrect = parseInt(selected.value) === getCorrectAnswerIndex(index);
+            if (isCorrect) score++;
+        }
+    });
+
+    const result = document.createElement("p");
+    result.className = "mt-3 fw-bold";
+    result.textContent = `Σκορ: ${score}/${allQuestions.length}`;
+    wrapper.appendChild(result);
+}
+
+function getCorrectAnswerIndex(index) {
+    // Συσχετίζει το index με το quizQuestions
+    return quizQuestions[index]?.correct ?? -1;
+}
+
 
     quizQuestions.forEach((q, index) => {
         const qBlock = document.createElement("div");
@@ -606,12 +638,14 @@
         `;
         wrapper.appendChild(qBlock);
     });
-}
+
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const quizId = urlParams.get("id");
 
     if (quizId) {
+       selectedCategory = quizId; // ✅ Αποθήκευσέ το παγκόσμια
+       document.getElementById("quizOptions").style.display = "none";
         const optionsSection = document.getElementById("quizOptions");
         if (optionsSection) {
             optionsSection.style.display = "none";
@@ -622,10 +656,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 200);
     }
 });
-      let currentLevel = "easy"; // ξεκινάμε από εύκολο
-      let correctStreak = 0;
-      let wrongStreak = 0;
-      let answeredQuestions = [];
+     
 
       function getNextQuestion(category) {
   const levelSet = questions[category][currentLevel];
@@ -659,13 +690,16 @@ function handleAnswer(isCorrect) {
 }
 
 function showAdaptiveQuestion(category) {
+  const wrapper = document.getElementById("quizWrapper1");
+  wrapper.innerHTML = ""; // ✅ Καθαρίζει προηγούμενες ερωτήσεις
+  
   const q = getNextQuestion(category);
+  
   if (!q) {
-    document.getElementById("quizWrapper1").innerHTML = "<p>No more questions!</p>";
+    wrapper.innerHTML = "<p>No more questions!</p>";
     return;
   }
 
-  const wrapper = document.getElementById("quizWrapper1");
   wrapper.innerHTML = `
     <p><b>${q.q}</b></p>
     ${q.a.map((opt, i) => `
@@ -684,20 +718,131 @@ function submitAnswer(correctIndex, category) {
 
   const isCorrect = parseInt(selected.value) === correctIndex;
   handleAnswer(isCorrect);
+
+  const nextQ = getNextQuestion(category);
+    if (!nextQ) {
+        const wrapper = document.getElementById("quizWrapper1");
+        const score = answeredQuestions.length;
+        wrapper.innerHTML = `<p>Τέλος! Απάντησες ${score} ερωτήσεις.</p>`;
+        return;
+    }
+
   showAdaptiveQuestion(category);
 }
 function startAdaptiveQuiz() {
-  const category = document.querySelector(".quiz-option:checked")?.value;
-  if (!category) {
-    document.getElementById("quizOptions").style.display = "block"; // δείξε επιλογές
-    alert("Please select one category");
-    return;
+  // ➤ Πάρε την κατηγορία από το URL (αν υπάρχει)
+  const urlParams = new URLSearchParams(window.location.search);
+  let categoryFromUrl = urlParams.get("id");
+
+  let category;
+
+  if (categoryFromUrl) {
+    category = categoryFromUrl;
+  } else {
+    const checkedOptions = document.querySelectorAll(".quiz-option:checked");
+    if (checkedOptions.length === 0) {
+      alert("⚠️ Παρακαλώ επίλεξε μία κατηγορία πριν ξεκινήσεις!");
+      return;
+    }
+    category = checkedOptions[0].value;
   }
+
+  // Αποθήκευσε τη κατηγορία
+  selectedCategory = category;
+
+  // Reset του adaptive quiz
   currentLevel = "easy";
   correctStreak = 0;
   wrongStreak = 0;
   answeredQuestions = [];
+
+  // Καθάρισμα UI
   document.getElementById("quizOptions").style.display = "none";
+  document.getElementById("adaptiveSummary").innerHTML = "";
+  document.getElementById("quizWrapper1").innerHTML = "";
+
+  // Reset Progress
+  updateAdaptiveProgress();
+
+  // ➤ Ξεκίνημα ερωτήσεων για την κατηγορία
+  showAdaptiveQuestion(category);
+}
+
+
+    // Adaptive Quiz με προόδους & σύνοψη
+function updateAdaptiveProgress() {
+  const total = 6;
+  const current = answeredQuestions.length;
+  const percent = Math.min((current / total) * 100, 100);
+
+  const progressBar = document.getElementById("adaptiveProgress");
+  progressBar.style.width = `${percent}%`;
+  progressBar.textContent = `${Math.round(percent)}%`;
+}
+
+function showAdaptiveSummary() {
+  const wrapper = document.getElementById("adaptiveSummary");
+  const total = answeredQuestions.length;
+  let stars = "";
+
+  if (total >= 6) stars = "⭐⭐⭐⭐⭐";
+  else if (total >= 4) stars = "⭐⭐⭐⭐";
+  else if (total >= 2) stars = "⭐⭐⭐";
+  else stars = "⭐";
+
+  const levelLabel = currentLevel.charAt(0).toUpperCase() + currentLevel.slice(1);
+
+  wrapper.innerHTML = `
+    <div class="p-4 bg-light border rounded shadow">
+      <h4>🔚 Τέλος Adaptive Quiz</h4>
+      <p><strong>Συνολικές απαντήσεις:</strong> ${total}</p>
+      <p><strong>Τελικό επίπεδο δυσκολίας:</strong> ${levelLabel}</p>
+      <p style="font-size: 1.5rem;">${stars}</p>
+      <button onclick="startAdaptiveQuiz()" class="btn btn-primary mt-3">Ξεκίνα Ξανά</button>
+    </div>
+  `;
+}
+
+function submitAnswer(correctIndex, category) {
+  const selected = document.querySelector("input[name='answer']:checked");
+  if (!selected) return;
+
+  const isCorrect = parseInt(selected.value) === correctIndex;
+  handleAnswer(isCorrect);
+
+  if (answeredQuestions.length >= 6) {
+    const wrapper = document.getElementById("quizWrapper1");
+    wrapper.innerHTML = `<p>🎉 Τέλος! Απάντησες ${answeredQuestions.length} ερωτήσεις.</p>`;
+    updateAdaptiveProgress();
+    showAdaptiveSummary();
+    return;
+  }
+  updateAdaptiveProgress();
+  showAdaptiveQuestion(category);
+}
+
+function startAdaptiveQuiz() {
+  let category = document.querySelector(".quiz-option:checked")?.value;
+
+  if (!category) {
+    const allOptions = document.querySelectorAll(".quiz-option");
+    if (allOptions.length > 0) {
+      allOptions[0].checked = true;
+      category = allOptions[0].value;
+    } else {
+      alert("No categories available!");
+      return;
+    }
+  }
+
+  currentLevel = "easy";
+  correctStreak = 0;
+  wrongStreak = 0;
+  answeredQuestions = [];
+
+  document.getElementById("quizOptions").style.display = "none";
+  document.getElementById("adaptiveSummary").innerHTML = "";
+  document.getElementById("quizWrapper1").innerHTML = "";
   showAdaptiveQuestion(category);
 }
 
