@@ -730,44 +730,48 @@ function submitAnswer(correctIndex, category) {
   showAdaptiveQuestion(category);
 }
 function startAdaptiveQuiz() {
-  // ➤ Πάρε την κατηγορία από το URL (αν υπάρχει)
   const urlParams = new URLSearchParams(window.location.search);
   let categoryFromUrl = urlParams.get("id");
 
-  let category;
+  let category = null;
 
-  if (categoryFromUrl) {
+  // Αν υπάρχει id στο URL και είναι έγκυρη κατηγορία, χρησιμοποίησέ το
+  if (categoryFromUrl && questions[categoryFromUrl]) {
     category = categoryFromUrl;
-  } else {
-    const checkedOptions = document.querySelectorAll(".quiz-option:checked");
-    if (checkedOptions.length === 0) {
-      alert("⚠️ Παρακαλώ επίλεξε μία κατηγορία πριν ξεκινήσεις!");
-      return;
-    }
-    category = checkedOptions[0].value;
   }
 
-  // Αποθήκευσε τη κατηγορία
+  // Αν δεν υπάρχει id ή είναι λάθος, έλεγξε αν έχει τσεκαριστεί κάτι
+  if (!category) {
+    const checked = document.querySelector(".quiz-option:checked");
+    if (checked) {
+      category = checked.value;
+    }
+  }
+
+  // Αν ακόμα δεν βρέθηκε κατηγορία, δείξε alert και σταμάτα
+  if (!category) {
+    alert("⚠️ Παρακαλώ επέλεξε κατηγορία ή βάλε id στο URL.");
+    return;
+  }
+
+  // Αποθήκευσε την κατηγορία (για επόμενες ερωτήσεις)
   selectedCategory = category;
 
-  // Reset του adaptive quiz
+  // RESET adaptive quiz
   currentLevel = "easy";
   correctStreak = 0;
   wrongStreak = 0;
   answeredQuestions = [];
 
   // Καθάρισμα UI
-  document.getElementById("quizOptions").style.display = "none";
-  document.getElementById("adaptiveSummary").innerHTML = "";
   document.getElementById("quizWrapper1").innerHTML = "";
+  document.getElementById("adaptiveSummary").innerHTML = "";
+  document.getElementById("quizOptions").style.display = "none";
 
-  // Reset Progress
   updateAdaptiveProgress();
 
-  // ➤ Ξεκίνημα ερωτήσεων για την κατηγορία
   showAdaptiveQuestion(category);
 }
-
 
     // Adaptive Quiz με προόδους & σύνοψη
 function updateAdaptiveProgress() {
@@ -781,6 +785,7 @@ function updateAdaptiveProgress() {
 }
 
 function showAdaptiveSummary() {
+  console.log(">>> Category used in adaptive:", category);
   const wrapper = document.getElementById("adaptiveSummary");
   const total = answeredQuestions.length;
   let stars = "";
@@ -822,33 +827,54 @@ function submitAnswer(correctIndex, category) {
 }
 
 function startAdaptiveQuiz() {
-  let category = document.querySelector(".quiz-option:checked")?.value;
+  let category = null;
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryFromUrl = urlParams.get("id");
+
+  // 1️⃣ Αν υπάρχει στο URL και είναι έγκυρο
+  if (categoryFromUrl && questions[categoryFromUrl]) {
+    category = categoryFromUrl;
+  }
+
+  // 2️⃣ Αν δεν υπάρχει στο URL, πάρε από checkbox
   if (!category) {
-    const allOptions = document.querySelectorAll(".quiz-option");
-    if (allOptions.length > 0) {
-      allOptions[0].checked = true;
-      category = allOptions[0].value;
-    } else {
-      alert("No categories available!");
-      return;
+    const checked = document.querySelector(".quiz-option:checked");
+    if (checked) {
+      category = checked.value;
     }
   }
 
+  // 3️⃣ Αν δεν έχει καμία επιλογή, alert
+  if (!category) {
+    alert("⚠️ Παρακαλώ επίλεξε κατηγορία!");
+    return;
+  }
+
+  selectedCategory = category;
+
+  // RESET
   currentLevel = "easy";
   correctStreak = 0;
   wrongStreak = 0;
   answeredQuestions = [];
 
-  document.getElementById("quizOptions").style.display = "none";
-  document.getElementById("adaptiveSummary").innerHTML = "";
+  // Καθαρισμός UI
   document.getElementById("quizWrapper1").innerHTML = "";
+  document.getElementById("adaptiveSummary").innerHTML = "";
+  document.getElementById("quizOptions").style.display = "none";
+
+  updateAdaptiveProgress();
+
+  // ✅ Τώρα είναι ασφαλές
+  console.log("✅ Adaptive ξεκινά για:", category);
   showAdaptiveQuestion(category);
 }
 
+
       </script>
 
-
+      
       <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     </body>
