@@ -78,98 +78,77 @@
       <div class="container my-5">
         <div class="row justify-content-center">
           <div class="col-md-12 p-4 bg-light rounded shadow mx-auto">
-            <form>
+            <div id="quizContainer" class="p-4 bg-light rounded shadow">
               <div class="mb-3">
                 <h5 style="color: gray;"> <b>Let's test your knowledge</b></h5>
-                <!-- Ερώτηση Paths -->
-                <div class="question category-Paths" style="display: none;">
-                    <p><b>Which of the following is a popular hiking destination in Andros?</b></p>
-                    <div><input type="radio" name="q1" value="a"> Kato Kastro</div>
-                    <div><input type="radio" name="q1" value="b"> Pythara Waterfalls</div>
-                    <div><input type="radio" name="q1" value="c"> Agios Petros Tower</div>
-                    <div><input type="radio" name="q1" value="d"> Paleopolis Museum</div>
-                </div>
 
-                <!-- Ερώτηση History -->
-                <div class="question category-History" style="display: none;">
-                    <p><b>Who raised the banner of the Greek Revolution in Andros in 1821?</b></p>
-                    <div><input type="radio" name="q2" value="a"> Lambros Katsonis</div>
-                    <div><input type="radio" name="q2" value="b"> Theophilos Kairis</div>
-                    <div><input type="radio" name="q2" value="c"> Dionysios Solomos</div>
-                    <div><input type="radio" name="q2" value="d"> Dimitris Moraitis</div>
-                </div>
-
-                
-
-                <div class="container my-5">
-                    <h4 class="text-center text-secondary">Select categories to begin the quiz:</h4>
-                    <div class="text-center mb-3">
-                        <div class="form-check form-check-inline">
-                        <input class="form-check-input quiz-option" type="checkbox" value="History" id="history">
-                        <label class="form-check-label" for="history">History</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                        <input class="form-check-input quiz-option" type="checkbox" value="Architecture" id="architecture">
-                        <label class="form-check-label" for="architecture">Architecture</label>
-                        </div>
-                        <div class="form-check form-check-inline">
+                <div id="quizOptions" class="container my-5">
+                  <h4 class="text-center text-secondary">Select categories to begin the quiz:</h4>
+                  <div class="text-center mb-3">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input quiz-option" type="checkbox" value="History" id="history">
+                      <label class="form-check-label" for="history">History</label>
+                    </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input quiz-option" type="checkbox" value="Architecture" id="architecture">
+                    <label class="form-check-label" for="architecture">Architecture</label>
+                    </div>
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input quiz-option" type="checkbox" value="Treasures" id="treasures">
                         <label class="form-check-label" for="treasures">Treasures</label>
-                        </div>
-                        <div class="form-check form-check-inline">
+                    </div>
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input quiz-option" type="checkbox" value="Paths" id="paths">
                         <label class="form-check-label" for="paths">Paths</label>
-                        </div>
-                        <div class="form-check form-check-inline">
+                    </div>
+                    <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="mode" value="random" id="randomMode">
                         <label class="form-check-label" for="randomMode">Random</label>
-                        </div>
                     </div>
+                </div>
+                <div class="text-center mb-4">
+                    <button type="button" class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
+                </div>
+                </div>
+                <div id="quizWrapper"></div> <!-- Εδώ θα μπαίνουν οι ερωτήσεις -->
 
-                    <div class="text-center mb-4">
-                        <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
-                    </div>
 
-                    <form id="quizContainer" class="p-4 bg-light rounded shadow" style="display: none;">
-                        <!-- Εδώ θα εμφανιστούν δυναμικά οι ερωτήσεις -->
-                    </form>
                 </div>
 
+                <h4 class="text-center mb-4" style="color: gray;">
+                  Here is a challenge for you<br>
+                  <b>Match the caption with the correct image!</b>
+                </h4>
 
-                
-                
-  <h4 class="text-center mb-4" style="color: gray;">
-    Here is a challenge for you<br>
-    <b>Match the caption with the correct image!</b>
-  </h4>
+                <div class="card p-4 shadow-sm">
+                  
+                  <!-- Εικόνες και περιοχές απόθεσης -->
+                  <div class="row text-center">
+                    <div class="col-md-4 mb-4">
+                      <img src="images/bol1.jpg" class="img-fluid rounded shadow" alt="The Bridge of Love">
+                      <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Bridge of Love"></div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <img src="images/an1.jpg" class="img-fluid rounded shadow" alt="The Statue Of Latent Seaman">
+                      <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Statue Of Latent Seaman"></div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <img src="images/gp1.jpg" class="img-fluid rounded shadow" alt="Old Woman's Beach the jump">
+                      <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="Old Woman's Beach the jump"></div>
+                    </div>
+                  </div>
 
-  <div class="card p-4 shadow-sm">
-    
-    <!-- Εικόνες και περιοχές απόθεσης -->
-    <div class="row text-center">
-      <div class="col-md-4 mb-4">
-        <img src="images/bol1.jpg" class="img-fluid rounded shadow" alt="The Bridge of Love">
-        <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Bridge of Love"></div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <img src="images/an1.jpg" class="img-fluid rounded shadow" alt="The Statue Of Latent Seaman">
-        <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="The Statue Of Latent Seaman"></div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <img src="images/gp1.jpg" class="img-fluid rounded shadow" alt="Old Woman's Beach the jump">
-        <div class="drop-zone mt-2" ondrop="drop(event)" ondragover="allowDrop(event)" data-expected="Old Woman's Beach the jump"></div>
-      </div>
-    </div>
+                  <!-- Λεζάντες προς μεταφορά -->
+                  <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+                    <div class="draggable" draggable="true" ondragstart="drag(event)" id="Old Woman's Beach the jump">Old Woman's Beach the jump</div>
+                    <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Bridge of Love">The Bridge of Love</div>
+                    <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Statue Of Latent Seaman">The Statue Of Latent Seaman</div>
+                  </div>
 
-    <!-- Λεζάντες προς μεταφορά -->
-    <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
-      <div class="draggable" draggable="true" ondragstart="drag(event)" id="Old Woman's Beach the jump">Old Woman's Beach the jump</div>
-      <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Bridge of Love">The Bridge of Love</div>
-      <div class="draggable" draggable="true" ondragstart="drag(event)" id="The Statue Of Latent Seaman">The Statue Of Latent Seaman</div>
-    </div>
-
-  </div>
+                </div>
 </div>
+                <button class="btn btn-warning" onclick="startAdaptiveQuiz()">Start Adaptive Quiz</button>
+                <div id="quizWrapper1"></div> <!-- Εδώ θα μπαίνουν οι ερωτήσεις -->
 
                 
                 <div class="container my-4">
@@ -185,7 +164,7 @@
                 </div>
 
                 </div>
-            </form>
+              </div>
           </div>
         </div>
       </div>
@@ -193,21 +172,7 @@
 
       <!-- Κώδικας για το slideshow-->
       <script>
-        window.onload = function() {
-          const slides = [
-          { image: "images/katokastro.png", caption: "Kato Kastro - Venetian Rule" },
-          { image: "images/epanokastro.jpg", caption: "Epano Kastro - Andros Fortress" }
-          ];
-
-          let currentIndex = 0;
-
-          window.nextSlide = function() {
-          currentIndex = (currentIndex + 1) % slides.length;
-          document.getElementById("slideImage").src = slides[currentIndex].image;
-          document.getElementById("caption").innerText = slides[currentIndex].caption;
-          };
-        };
-
+        
       function allowDrop(ev) {
     ev.preventDefault();
   }
@@ -270,91 +235,472 @@
       confetti(Object.assign({}, defaults, { origin: { x: 0.9, y: 0.5 } }));
     }, 200);
   }
-      </script>
-      <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const quizId = urlParams.get("id");
+      
+ 
 
-                    // Απόκρυψη όλων
-                    document.querySelectorAll(".question").forEach(el => el.style.display = "none");
+    const questions = {
+    History:  {
+    easy: [
+      {
+        q: "Where does the name 'Andros' come from according to mythology?",
+        a: ["Andros", "Apollo", "Zeus", "Sophocles"],
+        correct: 0
+      },
+      {
+        q: "Who raised the banner of the Greek Revolution in Andros in 1821?",
+        a: ["Theophilos Kairis", "Kolokotronis", "Dionysios Solomos", "Dimitris Moraitis"],
+        correct: 0
+      },
+      {
+        q: "What was a key feature of Andros in prehistoric times?",
+        a: ["Lush vegetation and abundant waters", "Desert landscape", "War castles", "Roman baths"],
+        correct: 0
+      }
+    ],
+    medium: [
+      {
+        q: "Which city was the capital of Andros during the Classical period?",
+        a: ["Gavrio", "Korthi", "Paleopolis", "Chora"],
+        correct: 2
+      },
+      {
+        q: "Which god was most worshipped in ancient Andros?",
+        a: ["Zeus", "Apollo", "Dionysus", "Isis"],
+        correct: 2
+      },
+      {
+        q: "What was the main change in Andros during the Roman era?",
+        a: ["Arrival of the cult of Isis", "Population census", "New port built", "Ships sunk"],
+        correct: 0
+      }
+    ],
+    hard: [
+      {
+        q: "Which people co-founded cities in Chalkidiki with the people of Andros in the 7th century BC?",
+        a: ["Athenians", "Phoenicians", "Chalcidians", "Cretans"],
+        correct: 2
+      },
+      {
+        q: "Why is Strofilas important to Cycladic history?",
+        a: ["It was the largest Neolithic settlement in the Aegean", "It was a Roman capital", "It hosted a Persian battle", "It was an Ottoman base"],
+        correct: 0
+      },
+      {
+        q: "What indicates the economic peak of Andros during the Byzantine Middle Ages?",
+        a: ["Development of silk industry and exports", "Building of an acropolis", "Roman amphitheaters", "Conquest by the Serbian Empire"],
+        correct: 0
+      }
+    ]
+  },Architecture: {
+  easy: [
+    {
+      q: "What type of traditional building is common in the region of Korthi?",
+      a: ["Glass buildings", "Traditional stone houses", "Neoclassical palaces", "Concrete apartments"],
+      correct: 1
+    },
+    {
+      q: "Which element helps Korthi houses withstand strong winds?",
+      a: ["Large windows", "Thick stone walls", "Metal roofs", "Plastic panels"],
+      correct: 1
+    },
+    {
+      q: "What material are many rural houses in Andros made of?",
+      a: ["Wood", "Steel", "Local stone", "Clay"],
+      correct: 2
+    }
+  ],
+  medium: [
+    {
+      q: "What makes Andros’ architecture different from other Cycladic islands?",
+      a: [
+        "It follows modern urban design",
+        "It mixes Aegean, neoclassical, and Venetian elements",
+        "It uses only traditional Cycladic cubes",
+        "It is influenced only by Ottoman designs"
+      ],
+      correct: 1
+    },
+    {
+      q: "Which feature is especially seen on houses built during the Turkish rule?",
+      a: ["Blue domes", "White flat roofs", "Colorful painted walls", "Glass windows"],
+      correct: 2
+    },
+    {
+      q: "What structure is often found around Korthi, decorated with geometric shapes?",
+      a: ["Windmills", "Dovecotes", "Churches", "Tombs"],
+      correct: 1
+    }
+  ],
+  hard: [
+    {
+      q: "How do the traditional houses in Korthi harmonize with their surroundings?",
+      a: [
+        "They are painted with bright red paint",
+        "They are built underground",
+        "They use earthy tones and natural materials",
+        "They mimic modern office buildings"
+      ],
+      correct: 2
+    },
+    {
+      q: "What is a key architectural contribution of the Venetian period in Andros?",
+      a: ["Luxury hotels", "Stone towers and fortresses", "Steel skyscrapers", "Neoclassical museums"],
+      correct: 1
+    },
+    {
+      q: "What is unique about the dovecotes of Andros?",
+      a: [
+        "They are built from marble",
+        "They are used for fishing",
+        "They are decorated with triangles, diamonds, and circles",
+        "They contain underground tunnels"
+      ],
+      correct: 2
+    }
+  ]
+},
+    Treasures: {
+  easy: [
+    {
+      q: "What does the Statue of the Unknown Sailor in Chora represent?",
+      a: [
+        "A war hero",
+        "A poet",
+        "All sailors lost at sea",
+        "The island’s founder"
+      ],
+      correct: 2
+    },
+    {
+      q: "What is the Bridge of Love famous for?",
+      a: [
+        "Being the longest bridge in Greece",
+        "Its tragic history",
+        "Couples making promises and wishes",
+        "Its wooden structure"
+      ],
+      correct: 2
+    },
+    {
+      q: "Where is the Old Woman's Leap located?",
+      a: [
+        "In the mountains",
+        "On a beach by the sea",
+        "At the village square",
+        "Inside a church"
+      ],
+      correct: 1
+    }
+  ],
+  medium: [
+    {
+      q: "What action made the old woman a symbol of betrayal during the Ottoman era?",
+      a: [
+        "She poisoned the guards",
+        "She opened the fortress gate for invaders",
+        "She guided enemies through the mountains",
+        "She wrote secret messages"
+      ],
+      correct: 1
+    },
+    {
+      q: "Why do people say the rock at Old Woman's Beach looks like a woman?",
+      a: [
+        "It has carvings on it",
+        "It was sculpted by locals",
+        "Its shape resembles a woman with a headscarf",
+        "It's a famous statue"
+      ],
+      correct: 2
+    },
+    {
+      q: "What is the Bridge of Love built from?",
+      a: [
+        "Wood",
+        "Steel",
+        "Stone",
+        "Glass"
+      ],
+      correct: 2
+    }
+  ],
+  hard: [
+    {
+      q: "What symbolic role does the Statue of the Unknown Sailor play in Andros?",
+      a: [
+        "A reminder of colonial rule",
+        "A tribute to Andros’ fishermen",
+        "A guardian of sacrifice and memory",
+        "A historical map marker"
+      ],
+      correct: 2
+    },
+    {
+      q: "What emotion does the Bridge of Love traditionally evoke?",
+      a: [
+        "Anger",
+        "Romance and nostalgia",
+        "Fear",
+        "Suspicion"
+      ],
+      correct: 1
+    },
+    {
+      q: "What legend is tied to the creation of the Old Woman's Leap rock?",
+      a: [
+        "A pirate's curse",
+        "A Roman love story",
+        "A betrayal during Ottoman rule",
+        "A battle with a sea monster"
+      ],
+      correct: 2
+    }
+  ]
+},
+    Paths: {
+  easy: [
+    {
+      q: "Why did Andros originally have so many footpaths?",
+      a: [
+        "To attract tourists",
+        "To connect settlements, ports, and places of worship",
+        "For military defense",
+        "For forest exploration"
+      ],
+      correct: 1
+    },
+    {
+      q: "What is the estimated total length of the hiking network in Andros today?",
+      a: [
+        "100 kilometers",
+        "150 kilometers",
+        "200 kilometers",
+        "Over 300 kilometers"
+      ],
+      correct: 3
+    },
+    {
+      q: "What natural feature is common along many of Andros’ paths?",
+      a: [
+        "Volcanoes",
+        "Waterfalls and springs",
+        "Caves",
+        "Sand dunes"
+      ],
+      correct: 1
+    }
+  ],
+  medium: [
+    {
+      q: "What type of architecture surrounds the hiking trails of Andros?",
+      a: [
+        "Roman ruins",
+        "Wooden houses",
+        "Rural stone architecture like terraces and dry-stone walls",
+        "Modern tourist buildings"
+      ],
+      correct: 2
+    },
+    {
+      q: "What do signs along the paths of Andros typically show?",
+      a: [
+        "The path’s sponsor",
+        "Animal tracks",
+        "Directions, distances, and trail connections",
+        "Phone numbers for guides"
+      ],
+      correct: 2
+    },
+    {
+      q: "What can you find along the paths aside from nature?",
+      a: [
+        "Vineyards and tunnels",
+        "Shopping centers",
+        "Chapels, bridges, and old mills",
+        "Lighthouses and marble statues"
+      ],
+      correct: 2
+    }
+  ],
+  hard: [
+    {
+      q: "Why is the landscape of Andros described as 'largely handmade'?",
+      a: [
+        "It was built by the Venetians",
+        "It is carved into marble",
+        "It was shaped by continuous human presence using stonework like terraces and walls",
+        "It is a man-made island"
+      ],
+      correct: 2
+    },
+    {
+      q: "Which of the following elements is part of the information provided for each hiking path?",
+      a: [
+        "Availability of guides",
+        "Ancient myth references",
+        "Ascent and descent in meters",
+        "Mobile signal coverage"
+      ],
+      correct: 2
+    },
+    {
+      q: "What caused the decline in use of the old paths after the mid-20th century?",
+      a: [
+        "Soil erosion",
+        "Pirate invasions",
+        "Introduction of cars and new roads",
+        "Earthquakes"
+      ],
+      correct: 2
+    }
+  ]
+}
 
-                    // Εμφάνιση μόνο όσων ανήκουν στην κατηγορία
-                    if (quizId) {
-                    document.querySelectorAll(".category-" + quizId).forEach(el => el.style.display = "block");
-                    }
-                });
-            </script>
-            <script>
-        const questions = {
-            History: [
-            {
-                q: "Who raised the banner of the Greek Revolution in Andros in 1821?",
-                a: ["Lambros Katsonis", "Theophilos Kairis", "Dionysios Solomos", "Dimitris Moraitis"],
-                correct: 1
-            }
-            ],
-            Architecture: [
-            {
-                q: "What is a key feature of Andros' traditional architecture?",
-                a: ["Neoclassical roofs", "Stone drywalls", "Domes", "Concrete balconies"],
-                correct: 1
-            }
-            ],
-            Treasures: [
-            {
-                q: "Where is the Hermes of Andros housed?",
-                a: ["Athens Museum", "Delphi", "Andros Museum", "Delos"],
-                correct: 2
-            }
-            ],
-            Paths: [
-            {
-                q: "Which of the following is a popular hiking destination in Andros?",
-                a: ["Kato Kastro", "Pythara Waterfalls", "Agios Petros Tower", "Paleopolis Museum"],
-                correct: 1
-            }
-            ]
-        };
+};
+     
 
-        function startQuiz() {
-            const container = document.getElementById("quizContainer");
-            container.innerHTML = ""; // clear previous quiz
-            container.style.display = "block";
+       function startQuiz(forcedCategory = null) {
+    const container = document.getElementById("quizContainer");
+    container.style.display = "block";
 
-            const selected = [...document.querySelectorAll('.quiz-option:checked')].map(el => el.value);
-            const randomMode = document.getElementById("randomMode").checked;
+    const wrapper = document.getElementById("quizWrapper");
+    wrapper.innerHTML = "";
 
-            let quizQuestions = [];
+    let selected = [];
 
-            if (randomMode || selected.length === 0) {
-            // Πάρε 1 random ερώτηση από κάθε κατηγορία
-            for (const cat in questions) {
-                const qList = questions[cat];
-                const randomIndex = Math.floor(Math.random() * qList.length);
-                quizQuestions.push(qList[randomIndex]);
-            }
-            } else {
-            selected.forEach(cat => {
-                quizQuestions = quizQuestions.concat(questions[cat]);
-            });
-            }
+    if (forcedCategory) {
+        selected = [forcedCategory];
+    } else {
+        selected = [...document.querySelectorAll('.quiz-option:checked')].map(el => el.value);
+    }
 
-            // Προβολή ερωτήσεων
-            quizQuestions.forEach((q, index) => {
-            const qBlock = document.createElement("div");
-            qBlock.className = "mb-4";
-            qBlock.innerHTML = `
-                <p><b>Q${index + 1}. ${q.q}</b></p>
-                ${q.a.map((opt, i) =>
+    const randomMode = document.getElementById("randomMode")?.checked;
+
+    let quizQuestions = [];
+
+    if (randomMode || selected.length === 0) {
+        for (const cat in questions) {
+            const qList = questions[cat];
+            const randomIndex = Math.floor(Math.random() * qList.length);
+            quizQuestions.push(qList[randomIndex]);
+        }
+    } else {
+        selected.forEach(cat => {
+    const levels = questions[cat];
+    for (const level in levels) {
+        quizQuestions = quizQuestions.concat(levels[level]);
+    }
+});
+    }
+
+    quizQuestions.forEach((q, index) => {
+        const qBlock = document.createElement("div");
+        qBlock.className = "mb-4";
+        qBlock.innerHTML = `
+            <p><b>Q${index + 1}. ${q.q}</b></p>
+            ${q.a.map((opt, i) =>
                 `<div>
                     <input type="radio" name="q${index}" value="${i}" id="q${index}a${i}">
                     <label for="q${index}a${i}">${opt}</label>
                 </div>`).join('')}
-            `;
-            container.appendChild(qBlock);
-            });
+        `;
+        wrapper.appendChild(qBlock);
+    });
+}
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const quizId = urlParams.get("id");
+
+    if (quizId) {
+        const optionsSection = document.getElementById("quizOptions");
+        if (optionsSection) {
+            optionsSection.style.display = "none";
         }
+
+        setTimeout(() => {
+            startQuiz(quizId);
+        }, 200);
+    }
+});
+      let currentLevel = "easy"; // ξεκινάμε από εύκολο
+      let correctStreak = 0;
+      let wrongStreak = 0;
+      let answeredQuestions = [];
+
+      function getNextQuestion(category) {
+  const levelSet = questions[category][currentLevel];
+  const unused = levelSet.filter(q => !answeredQuestions.includes(q.q));
+  
+  if (unused.length === 0) return null;
+
+  const q = unused[Math.floor(Math.random() * unused.length)];
+  answeredQuestions.push(q.q);
+  return q;
+}
+
+function handleAnswer(isCorrect) {
+  if (isCorrect) {
+    correctStreak++;
+    wrongStreak = 0;
+    if (correctStreak >= 2) {
+      if (currentLevel === "easy") currentLevel = "medium";
+      else if (currentLevel === "medium") currentLevel = "hard";
+      correctStreak = 0;
+    }
+  } else {
+    wrongStreak++;
+    correctStreak = 0;
+    if (wrongStreak >= 2) {
+      if (currentLevel === "hard") currentLevel = "medium";
+      else if (currentLevel === "medium") currentLevel = "easy";
+      wrongStreak = 0;
+    }
+  }
+}
+
+function showAdaptiveQuestion(category) {
+  const q = getNextQuestion(category);
+  if (!q) {
+    document.getElementById("quizWrapper1").innerHTML = "<p>No more questions!</p>";
+    return;
+  }
+
+  const wrapper = document.getElementById("quizWrapper1");
+  wrapper.innerHTML = `
+    <p><b>${q.q}</b></p>
+    ${q.a.map((opt, i) => `
+      <div>
+        <input type="radio" name="answer" value="${i}" id="opt${i}">
+        <label for="opt${i}">${opt}</label>
+      </div>
+    `).join('')}
+    <button class="btn btn-success mt-2" onclick="submitAnswer(${q.correct}, '${category}')">Submit</button>
+  `;
+}
+
+function submitAnswer(correctIndex, category) {
+  const selected = document.querySelector("input[name='answer']:checked");
+  if (!selected) return;
+
+  const isCorrect = parseInt(selected.value) === correctIndex;
+  handleAnswer(isCorrect);
+  showAdaptiveQuestion(category);
+}
+function startAdaptiveQuiz() {
+  const category = document.querySelector(".quiz-option:checked")?.value;
+  if (!category) {
+    document.getElementById("quizOptions").style.display = "block"; // δείξε επιλογές
+    alert("Please select one category");
+    return;
+  }
+  currentLevel = "easy";
+  correctStreak = 0;
+  wrongStreak = 0;
+  answeredQuestions = [];
+  document.getElementById("quizOptions").style.display = "none";
+  showAdaptiveQuestion(category);
+}
+
       </script>
 
 
