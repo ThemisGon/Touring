@@ -154,6 +154,9 @@
       let answeredQuestions = [];
       var quizQuestions = [];
       let selectedCategory = null;
+      let lastAnswers = {}; // για να κρατάμε τις απαντήσεις του χρήστη
+      let lastQuestion = null; // ✅ θα κρατάμε την τελευταία ερώτηση
+
 
       function allowDrop(ev) {
     ev.preventDefault();
@@ -229,6 +232,36 @@
         correct: 0
       },
       {
+      q: "Who is said to be the mythical ancestor of the island’s name?",
+      a: [
+        "Anios",
+        "Andros, son of Anios",
+        "Dionysus",
+        "Staphylos"
+      ],
+      correct: 1
+      },
+      {
+        q: "Which god was especially worshipped by the ancient people of Andros?",
+        a: [
+          "Ares",
+          "Hermes",
+          "Dionysus",
+          "Athena"
+        ],
+        correct: 2
+      },
+            {
+        q: "Which Neolithic site in Andros is considered the largest in the Aegean?",
+        a: [
+          "Zagora",
+          "Strofilas",
+          "Paleopolis",
+          "Ipsili"
+        ],
+        correct: 1
+      },
+      {
         q: "Who raised the banner of the Greek Revolution in Andros in 1821?",
         a: ["Theophilos Kairis", "Kolokotronis", "Dionysios Solomos", "Dimitris Moraitis"],
         correct: 0
@@ -263,6 +296,26 @@
         correct: 2
       },
       {
+        q: "During the Venetian rule, which fortress was considered the most strategically important in Andros?",
+        a: [
+          "Makrotantalo Tower",
+          "Epano Kastro (Castel del alto)",
+          "Kato Kastro (Castel a basso)",
+          "Vryokastro"
+        ],
+        correct: 1
+      },
+            {
+        q: "What reflects the cultural continuity of Andros during the Roman era?",
+        a: [
+          "Construction of a Roman amphitheater",
+          "Romans assimilating into Greek culture",
+          "Settlement of a Roman legion",
+          "Abolishment of Dionysus worship"
+        ],
+        correct: 1
+      },
+      {
         q: "Why is Strofilas important to Cycladic history?",
         a: ["It was the largest Neolithic settlement in the Aegean", "It was a Roman capital", "It hosted a Persian battle", "It was an Ottoman base"],
         correct: 0
@@ -280,6 +333,36 @@
       a: ["Glass buildings", "Traditional stone houses", "Neoclassical palaces", "Concrete apartments"],
       correct: 1
     },
+    {
+  q: "What feature makes rural houses in Andros blend with the natural landscape?",
+  a: [
+    "Glass walls and neon colors",
+    "Earthy tones and local materials",
+    "Bright blue roofs",
+    "Tall steel fences"
+  ],
+  correct: 1
+},
+    {
+  q: "Where can you mainly find dovecotes decorated with geometric shapes in Andros?",
+  a: [
+    "Batsi",
+    "Gavrio",
+    "Korthi",
+    "Chora"
+  ],
+  correct: 2
+},
+    {
+  q: "What architectural style is mixed with Cycladic elements in Andros?",
+  a: [
+    "Gothic",
+    "Ottoman only",
+    "Neoclassical and Venetian",
+    "Minimalist concrete"
+  ],
+  correct: 2
+},
     {
       q: "Which element helps Korthi houses withstand strong winds?",
       a: ["Large windows", "Thick stone walls", "Metal roofs", "Plastic panels"],
@@ -325,6 +408,26 @@
       correct: 2
     },
     {
+      q: "What architectural feature reflects Andros' blend of cultural influences?",
+      a: [
+        "Only minimalist Cycladic cubes",
+        "A mixture of Aegean, neoclassical, and Venetian styles",
+        "Fully modern urban planning",
+        "Purely Ottoman architecture"
+      ],
+      correct: 1
+    },
+        {
+      q: "Which structure in Andros showcases geometric decoration and is mostly found in Korthi?",
+      a: [
+        "Old churches",
+        "Traditional fountains",
+        "Dovecotes",
+        "Observation towers"
+      ],
+      correct: 2
+    },
+    {
       q: "What is a key architectural contribution of the Venetian period in Andros?",
       a: ["Luxury hotels", "Stone towers and fortresses", "Steel skyscrapers", "Neoclassical museums"],
       correct: 1
@@ -353,6 +456,36 @@
       ],
       correct: 2
     },
+    {
+  q: "What does the rock at Old Woman’s Leap resemble?",
+  a: [
+    "A lion",
+    "A crown",
+    "A woman with a headscarf",
+    "A sailing ship"
+  ],
+  correct: 2
+},
+    {
+  q: "What do couples traditionally do at the Bridge of Love?",
+  a: [
+    "Take swimming lessons",
+    "Compete in races",
+    "Make wishes or promises",
+    "Paint graffiti"
+  ],
+  correct: 2
+},
+    {
+  q: "Why is the Statue of the Unknown Sailor placed facing the sea?",
+  a: [
+    "To monitor fishing activity",
+    "To honor sailors lost to the waves",
+    "To guide tourists to the beach",
+    "To attract birds"
+  ],
+  correct: 1
+},
     {
       q: "What is the Bridge of Love famous for?",
       a: [
@@ -418,6 +551,26 @@
       correct: 2
     },
     {
+      q: "Why do couples visit the Bridge of Love in Andros?",
+      a: [
+        "To throw coins for good luck",
+        "To place locks like in Paris",
+        "To make vows and promises under its arch",
+        "To attend annual ceremonies"
+      ],
+      correct: 2
+    },
+    {
+      q: "Why is the rock at Old Woman’s Leap considered significant?",
+      a: [
+        "It hides a treasure cave",
+        "Its shape resembles a mourning woman",
+        "It is the tallest point on the island",
+        "It was a pirate lookout"
+      ],
+      correct: 1
+    },
+    {
       q: "What emotion does the Bridge of Love traditionally evoke?",
       a: [
         "Anger",
@@ -451,6 +604,36 @@
       ],
       correct: 1
     },
+    {
+  q: "What is unique about Andros’ landscape according to the text?",
+  a: [
+    "It’s mostly sandy and flat",
+    "It’s handmade with terraces and stone walls",
+    "It’s covered by dense jungle",
+    "It’s shaped by volcanic activity"
+  ],
+  correct: 1
+},
+    {
+  q: "What is commonly found along the trails of Andros?",
+  a: [
+    "Underground tunnels",
+    "Country chapels, bridges, and old mills",
+    "Street lights and pavements",
+    "Fencing and ticket booths"
+  ],
+  correct: 1
+},
+    {
+  q: "What often helps hikers navigate along the paths of Andros?",
+  a: [
+    "Graffiti arrows",
+    "Random rocks",
+    "Official signs with directions and distances",
+    "Spray-painted trees"
+  ],
+  correct: 2
+},
     {
       q: "What is the estimated total length of the hiking network in Andros today?",
       a: [
@@ -512,6 +695,26 @@
         "It is carved into marble",
         "It was shaped by continuous human presence using stonework like terraces and walls",
         "It is a man-made island"
+      ],
+      correct: 2
+    },
+    {
+      q: "What type of rural architecture is commonly found along Andros’ trails?",
+      a: [
+        "Glass walkways and marble floors",
+        "Wooden huts and pagodas",
+        "Terraces and dry-stone walls",
+        "Baroque fountains and statues"
+      ],
+      correct: 2
+    },
+    {
+      q: "Why are signs placed along the hiking paths of Andros?",
+      a: [
+        "To advertise local shops",
+        "To prevent animal crossings",
+        "To guide hikers with directions and trail info",
+        "To monitor weather changes"
       ],
       correct: 2
     },
@@ -591,7 +794,7 @@ quizQuestions.forEach((q, index) => {
     wrapper.appendChild(qBlock);
 });
 
-// ✅ Τέλος, πρόσθεσε το κουμπί υποβολής μία φορά:
+//  Τέλος, πρόσθεσε το κουμπί υποβολής μία φορά:
 const submitBtn = document.createElement("button");
 submitBtn.className = "btn btn-success mt-3";
 submitBtn.textContent = "Υποβολή";
@@ -608,7 +811,8 @@ wrapper.appendChild(submitBtn);
     allQuestions.forEach((qBlock, index) => {
         const selected = qBlock.querySelector("input[type='radio']:checked");
         if (selected) {
-            const isCorrect = parseInt(selected.value) === getCorrectAnswerIndex(index);
+            const currentQuestion = answeredQuestions[answeredQuestions.length - 1];
+lastAnswers[currentQuestion] = parseInt(selected.value);
             if (isCorrect) score++;
         }
     });
@@ -694,6 +898,8 @@ function showAdaptiveQuestion(category) {
   wrapper.innerHTML = ""; // ✅ Καθαρίζει προηγούμενες ερωτήσεις
   
   const q = getNextQuestion(category);
+lastQuestion = q; // ✅ αποθηκεύουμε την ερώτηση
+
   
   if (!q) {
     wrapper.innerHTML = "<p>No more questions!</p>";
@@ -717,18 +923,49 @@ function submitAnswer(correctIndex, category) {
   if (!selected) return;
 
   const isCorrect = parseInt(selected.value) === correctIndex;
-  handleAnswer(isCorrect);
 
-  const nextQ = getNextQuestion(category);
-    if (!nextQ) {
-        const wrapper = document.getElementById("quizWrapper1");
-        const score = answeredQuestions.length;
-        wrapper.innerHTML = `<p>Τέλος! Απάντησες ${score} ερωτήσεις.</p>`;
-        return;
+  // 🔄 Ενημέρωση λογικής προσαρμογής
+  if (isCorrect) {
+    correctStreak++;
+    wrongStreak = 0;
+
+    if (currentLevel === "easy" && correctStreak >= 1) {
+      currentLevel = "medium";
+    } else if (currentLevel === "medium" && correctStreak >= 1) {
+      currentLevel = "hard";
     }
+  } else {
+    wrongStreak++;
+    correctStreak = 0;
 
+    if (currentLevel === "hard") {
+      currentLevel = "medium";
+    } else if (currentLevel === "medium") {
+      currentLevel = "easy";
+    } else if (currentLevel === "easy" && wrongStreak >= 3) {
+      const wrapper = document.getElementById("quizWrapper1");
+      wrapper.innerHTML = `
+        <p class="text-danger fw-bold">❗ Έκανες 3 λάθη στη σειρά στο εύκολο επίπεδο.</p>
+        <p>Πήγαινε να ξαναδιαβάσεις την σελίδα <a href="history.html">History</a>.</p>
+      `;
+      updateAdaptiveProgress();
+      return;
+    }
+  }
+
+  // Αν απάντησε συνολικά 6 ερωτήσεις, τερμάτισε
+  if (answeredQuestions.length >= 6) {
+    const wrapper = document.getElementById("quizWrapper1");
+    wrapper.innerHTML = `<p> Τέλος! Απάντησες ${answeredQuestions.length} ερωτήσεις.</p>`;
+    updateAdaptiveProgress();
+    showAdaptiveSummary(category);
+    return;
+  }
+
+  updateAdaptiveProgress();
   showAdaptiveQuestion(category);
 }
+
 function startAdaptiveQuiz() {
   const urlParams = new URLSearchParams(window.location.search);
   let categoryFromUrl = urlParams.get("id");
@@ -784,42 +1021,58 @@ function updateAdaptiveProgress() {
   progressBar.textContent = `${Math.round(percent)}%`;
 }
 
-function showAdaptiveSummary() {
-  console.log(">>> Category used in adaptive:", category);
+function showAdaptiveSummary(category) {
   const wrapper = document.getElementById("adaptiveSummary");
-  const total = answeredQuestions.length;
-  let stars = "";
 
-  if (total >= 6) stars = "⭐⭐⭐⭐⭐";
-  else if (total >= 4) stars = "⭐⭐⭐⭐";
-  else if (total >= 2) stars = "⭐⭐⭐";
-  else stars = "⭐";
+  // Υπολογισμός σωστών απαντήσεων
+  let correctCount = 0;
+  answeredQuestions.forEach(qText => {
+    const allLevels = Object.values(questions[category]).flat();
+    const question = allLevels.find(q => q.q === qText);
+    if (question && lastAnswers[qText] === question.correct) {
+      correctCount++;
+    }
+  });
+
+  // Αστέρια βάσει σωστών
+  let Message =""
+  let stars = "";
+  if (correctCount >= 6) stars = "⭐⭐⭐⭐⭐", Message ="Perfect!";
+  else if (correctCount >= 4) stars = "⭐⭐⭐⭐", Message ="Nice Work!";
+  else if (correctCount >= 2) stars = "⭐⭐⭐", Message ="Good!";
+  else stars = "⭐", Message ="Better luck nect time..";
 
   const levelLabel = currentLevel.charAt(0).toUpperCase() + currentLevel.slice(1);
 
   wrapper.innerHTML = `
     <div class="p-4 bg-light border rounded shadow">
-      <h4>🔚 Τέλος Adaptive Quiz</h4>
-      <p><strong>Συνολικές απαντήσεις:</strong> ${total}</p>
+      <h4> Τέλος Adaptive Quiz</h4>
+      <p><strong>Κατηγορία:</strong> ${category}</p>
+      <p><strong>Σωστές απαντήσεις:</strong> ${correctCount} / ${answeredQuestions.length}</p>
       <p><strong>Τελικό επίπεδο δυσκολίας:</strong> ${levelLabel}</p>
+      <p><strong>${Message}</strong></p>
       <p style="font-size: 1.5rem;">${stars}</p>
       <button onclick="startAdaptiveQuiz()" class="btn btn-primary mt-3">Ξεκίνα Ξανά</button>
     </div>
   `;
 }
 
+
 function submitAnswer(correctIndex, category) {
   const selected = document.querySelector("input[name='answer']:checked");
   if (!selected) return;
 
+  if (lastQuestion) {
+  lastAnswers[lastQuestion.q] = parseInt(selected.value); // ✅ αποθηκεύει τι απάντησε
+}
   const isCorrect = parseInt(selected.value) === correctIndex;
   handleAnswer(isCorrect);
 
   if (answeredQuestions.length >= 6) {
     const wrapper = document.getElementById("quizWrapper1");
-    wrapper.innerHTML = `<p>🎉 Τέλος! Απάντησες ${answeredQuestions.length} ερωτήσεις.</p>`;
+    wrapper.innerHTML = `<p> Τέλος! Απάντησες ${answeredQuestions.length} ερωτήσεις.</p>`;
     updateAdaptiveProgress();
-    showAdaptiveSummary();
+    showAdaptiveSummary(category);
     return;
   }
   updateAdaptiveProgress();
