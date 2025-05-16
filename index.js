@@ -1,28 +1,36 @@
-// Φορτώνουμε τις απαραίτητες βιβλιοθήκες
-const express = require('express');
-const { readFile } = require('fs').promises;
-const path = require('path');
+import express from 'express';
+import { readFile } from 'fs/promises';
+import path from 'path';
+import pool from './db.js'; // εισαγωγή της βάσης
 
 const app = express();
 
-//Για την χρήση εικόνων απο τον φάκελο images
+// Στατικά αρχεία
 app.use('/images', express.static('images'));
+app.use(express.static(path.join(process.cwd())));
 
-// Εξυπηρέτηση όλων των αρχείων από τον τρέχοντα φάκελο
-app.use(express.static(path.join(__dirname)));
-
-// Ρούτα για το "/"
-app.get('/', async (request, response) => {
-    try {
-        const html = await readFile('./home.html', 'utf8'); // Διαβάζει το HTML αρχείο
-        response.send(html); // Στέλνει την HTML ως απάντηση
-    } catch (err) {
-        console.error('Σφάλμα στην ανάγνωση του αρχείου:', err);
-        response.status(500).send('Σφάλμα διακομιστή'); // Στέλνει σφάλμα σε περίπτωση αποτυχίας
-    }
+// API για τις σημειώσεις
+app.get('/api/notes', async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM notes");
+    res.json(rows);
+  } catch (err) {
+    console.error('Σφάλμα στη βάση:', err);
+    res.status(500).send('Σφάλμα διακομιστή');
+  }
 });
 
-// Ξεκινάει ο server στην θύρα 3003 ή όποια έχει οριστεί ως PORT
+// Ρούτα για το "/"
+app.get('/', async (req, res) => {
+  try {
+    const html = await readFile('./home.html', 'utf8');
+    res.send(html);
+  } catch (err) {
+    console.error('Σφάλμα στην ανάγνωση HTML:', err);
+    res.status(500).send('Σφάλμα διακομιστή');
+  }
+});
+
 app.listen(process.env.PORT || 3003, () =>
-    console.log('App available on http://localhost:3003')
+  console.log('App running at http://localhost:3003')
 );

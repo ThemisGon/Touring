@@ -1,6 +1,7 @@
 {
   "name": "touring",
   "version": "1.0.0",
+  "type": "module",
   "description": "This is a touring a site.",
   "main": "index.js",
   "scripts": {
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/ThemisGon/Touring#readme",
   "dependencies": {
     "bootstrap": "^5.3.6",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1"
   }
 }
