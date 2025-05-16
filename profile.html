@@ -64,7 +64,7 @@
                 <div class="logo-container">
                   <a class="nav-link login-link" href="profile.html">
                     <img class="logo" src="images/touristboy.png" alt="Login Icon">
-                    <span class="login-text">Login</span>
+                    <span class="login-text">Profile</span>
                   </a>
                 </div>
               </li>
@@ -73,7 +73,7 @@
         </div>
       </nav>
       <br>
-      <h2 style="color: gray;"> <b>Login</b></h2>
+      <h2 style="color: gray;"> <b>Pofile</b></h2>
       <h4 style="color: gray;">Access your profile and track progress</h4>
 
         <div class="container my-5">
@@ -114,6 +114,19 @@
                     <button type="submit" class="btn btn-success w-100">Sign Up</button>
                     <p class="mt-3 text-center">Already have an account? <a href="#" onclick="toggleForms()">Back to Login</a></p>
                 </form>
+                <!-- User Info Section (κρυμμένο αρχικά) -->
+                <div id="userInfo" class="container my-5" style="display: none;">
+                  <div class="alert alert-success">
+                    <h4>Welcome, <span id="userName"></span>!</h4>
+                    <p>Email: <span id="userEmail"></span></p>
+                    <p>Quiz Score: <span id="userScore"></span></p>
+                    <p>Score History: <span id="scoreHistory"></span></p>
+                    <p>Score Architecture: <span id="scoreArchitecture"></span></p>
+                    <p>Score Treasures: <span id="scoreTreasures"></span></p>
+                    <p>Score Paths: <span id="scorePaths"></span></p>
+                  </div>
+                  <button class="btn btn-danger mt-3" onclick="logout()">Sign Out</button>
+                </div>
 
                 </div>
             </div>
@@ -127,6 +140,122 @@
                 register.style.display = register.style.display === "none" ? "block" : "none";
             }
         </script>
+        <script>
+          document.getElementById('registerForm').addEventListener('submit', async (e) => {
+              e.preventDefault();
+              const form = e.target;
+              const data = {
+                  full_name: form.querySelector("input[placeholder='Enter your name']").value,
+                  email: form.querySelector("input[placeholder='Enter your email']").value,
+                  password: form.querySelector("input[placeholder='Create a password']").value
+              };
+
+              const res = await fetch('/api/register', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(data)
+              });
+
+              const result = await res.json();
+              alert(result.message);
+              if (res.ok) {
+              const user = { 
+                  full_name: data.full_name, 
+                  email: data.email,
+                  quiz_score: 0,
+                  score_history: 0,
+                  score_architecture: 0,
+                  score_treasures: 0,
+                  score_paths: 0
+              };              
+              localStorage.setItem('user', JSON.stringify(user));
+              showUserInfo(user.full_name, user.email, user.quiz_score);
+              document.getElementById('registerForm').style.display = 'none';
+              }
+          });
+        </script>
+        <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const data = {
+                email: form.querySelector("input[placeholder='Enter your email']").value,
+                password: form.querySelector("input[placeholder='Enter your password']").value
+            };
+
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+            alert(result.message);
+
+            if (res.ok) {
+
+                localStorage.setItem('user', JSON.stringify(result.user));
+                showUserInfo(result.user.full_name, result.user.email, result.user.quiz_score);
+                document.getElementById('loginForm').style.display = 'none';
+            }
+        });
+        </script>
+        <script>
+        function showUserInfo(name, email, quiz, history = 0, arch = 0, treas = 0, paths = 0) {
+          document.getElementById('userName').textContent = name;
+          document.getElementById('userEmail').textContent = email;
+          document.getElementById('userScore').textContent = quiz;
+          document.getElementById('scoreHistory').textContent = history;
+          document.getElementById('scoreArchitecture').textContent = arch;
+          document.getElementById('scoreTreasures').textContent = treas;
+          document.getElementById('scorePaths').textContent = paths;
+
+          document.getElementById('userInfo').style.display = 'block';
+        }
+        </script>
+        <script>
+        window.addEventListener('DOMContentLoaded', async () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+          try {
+            const res = await fetch('/api/user', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: user.email })
+            });
+
+            const result = await res.json();
+            if (res.ok && result.user) {
+              // Απόκρυψη φορμών
+              document.getElementById('loginForm').style.display = 'none';
+              document.getElementById('registerForm').style.display = 'none';
+
+              // Εμφάνιση στοιχείων
+              showUserInfo(
+                result.user.full_name,
+                result.user.email,
+                result.user.quiz_score,
+                result.user.score_history,
+                result.user.score_architecture,
+                result.user.score_treasures,
+                result.user.score_paths
+              );
+            }
+          } catch (err) {
+            console.error('❌ Σφάλμα κατά τη φόρτωση χρήστη:', err);
+          }
+        }
+      });
+
+        </script>
+        <script>
+        function logout() {
+            localStorage.removeItem('user');
+            location.reload(); // ή: window.location.href = 'profile.html';
+        }
+        </script>
+
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
