@@ -139,3 +139,8 @@ body{
       border-color: red;
       background-color: #f8d7da;
     }
+
+.carousel1-item img {
+  height: 600px;
+  object-fit: cover;
+}

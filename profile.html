@@ -211,6 +211,11 @@
           document.getElementById('scorePaths').textContent = paths;
 
           document.getElementById('userInfo').style.display = 'block';
+          // ✅ Προληπτικός έλεγχος για το #historyBonus (υπάρχει μόνο σε history.html)
+          const bonus = document.getElementById('historyBonus');
+          if (history >= 10 && bonus) {
+            bonus.style.display = 'block';
+          }
         }
         </script>
         <script>

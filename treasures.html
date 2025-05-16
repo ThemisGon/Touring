@@ -234,20 +234,7 @@
 
       <!-- Κώδικας για το slideshow-->
       <script>
-        window.onload = function() {
-          const slides = [
-          { image: "images/katokastro.png", caption: "Kato Kastro - Venetian Rule" },
-          { image: "images/epanokastro.jpg", caption: "Epano Kastro - Andros Fortress" }
-          ];
-
-          let currentIndex = 0;
-
-          window.nextSlide = function() {
-          currentIndex = (currentIndex + 1) % slides.length;
-          document.getElementById("slideImage").src = slides[currentIndex].image;
-          document.getElementById("caption").innerText = slides[currentIndex].caption;
-          };
-        };
+        
 
       function allowDrop(ev) {
     ev.preventDefault();

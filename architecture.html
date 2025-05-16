@@ -84,13 +84,32 @@
                 <p>Andros is a very interesting island in Greece probably because it is not a typical example of <b>Cycladic architecture</b> but rather a mixture of different characteristics. Typical Aegean type houses that coexist with neoclassical buildings, Venetian towers, and fortresses, towers like the <b>Hellenistic Tower of Agios Petros</b>, old <b>watermills</b> and fountains create this beautiful setting of unique harmony.</p>
                 <h5 style="color: gray;"> <b>Architecture of Andros</b></h5>
                 <p>The architecture of Andros has many aspects but it is especially known for the cosmopolitan atmosphere and the cultural identity that preserves the last decades. Around the <b>Chora</b> of Andros and the picturesque villages, one can see perfect examples of rural houses standing close to Venetian towers.
-Equally impressive are the beautiful mansions that can be found around the island which were built during the Turkish rule painted with different colors. Another characteristic of Andros island is the many dovecotes that adorn the island and can be found mostly in <b>Korthi</b> region. Stone structures built in geometric shapes forming triangles, diamonds and circles give the island a beautiful tone.</p>
-                <div class="card text-center">
-                  <div class="card-body">
-                    <img id="slideImage" src="images/church.jpg" class="img-fluid slide-image mb-3" alt="Εικόνα">
-                    <h5 id="caption" class="card-title caption-bold" style="color: gray;">Agia Thalassini</h5>
-                    <button type="button" class="btn btn-secondary mt-2" onclick="nextSlide()">Next</button>
+                Equally impressive are the beautiful mansions that can be found around the island which were built during the Turkish rule painted with different colors. Another characteristic of Andros island is the many dovecotes that adorn the island and can be found mostly in <b>Korthi</b> region. Stone structures built in geometric shapes forming triangles, diamonds and circles give the island a beautiful tone.</p>
+                
+                <div id="imageCarousel3" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="images/church.jpg" class="d-block w-100" alt="..." style="height: 600px; object-fit: cover;">
+                      <h5 id="caption" class="card-title caption-bold" style="color: gray;">Agia Thalassini</h5>
+
+                    </div>
+                    <div class="carousel-item">
+                      <img src="images/town.jpg" class="d-block w-100" alt="..." style="height: 600px; object-fit: cover;">
+                      <h5 id="caption" class="card-title caption-bold" style="color: gray;">Chora - Andros</h5>
+                    </div>
+                    <div class="carousel-item">
+                      <img src="images/house.jpg" class="d-block w-100" alt="..." style="height: 600px; object-fit: cover;">
+                      <h5 id="caption" class="card-title caption-bold" style="color: gray;">Chora - Andros</h5>
+                    </div>
                   </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel3" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel3" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
                 </div>
                 <br><br>
                 <h5 style="color: gray;"> <b>Stone structures</b></h5>
@@ -146,122 +165,108 @@ Equally impressive are the beautiful mansions that can be found around the islan
       </div>
 
 
-      <!-- Κώδικας για το slideshow-->
+      
       <script>
-        window.onload = function() {
-          const slides = [
-          { image: "images/church.jpg", caption: "Agia Thalassini" },
-          { image: "images/town.jpg", caption: "Chora - Andros" },
-          { image: "images/house.jpg", caption: "Chora - Andros" }
-          ];
-
-          let currentIndex = 0;
-
-          window.nextSlide = function() {
-          currentIndex = (currentIndex + 1) % slides.length;
-          document.getElementById("slideImage").src = slides[currentIndex].image;
-          document.getElementById("caption").innerText = slides[currentIndex].caption;
-          };
-        };
+        
       /*Puzzle*/
       const rows = 3, cols = 3;
-  const canvas = document.getElementById('puzzleCanvas');
-  const ctx = canvas.getContext('2d');
-  const img = new Image();
-  img.src = 'images/pyrgos.jpg';
+      const canvas = document.getElementById('puzzleCanvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = 'images/pyrgos.jpg';
 
-  let pieces = [], pieceW, pieceH, selected = null;
+      let pieces = [], pieceW, pieceH, selected = null;
 
-  img.onload = () => {
-    canvas.width = 600;
-    canvas.height = 600;
-    pieceW = canvas.width / cols;
-    pieceH = canvas.height / rows;
+      img.onload = () => {
+        canvas.width = 600;
+        canvas.height = 600;
+        pieceW = canvas.width / cols;
+        pieceH = canvas.height / rows;
 
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        pieces.push({
-          sx: x * (img.width / cols),
-          sy: y * (img.height / rows),
-          x: Math.random() * (canvas.width - pieceW),
-          y: Math.random() * (canvas.height - pieceH),
-          correctX: x * pieceW,
-          correctY: y * pieceH
-        });
-      }
-    }
-    draw();
-  };
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (const p of pieces) {
-      ctx.drawImage(img, p.sx, p.sy, img.width / cols, img.height / rows, p.x, p.y, pieceW, pieceH);
-      ctx.strokeRect(p.x, p.y, pieceW, pieceH);
-    }
-  }
-
-  function checkSolved() {
-    return pieces.every(p =>
-      Math.abs(p.x - p.correctX) < 5 && Math.abs(p.y - p.correctY) < 5
-    );
-  }
-
-  function launchConfetti() {
-    const duration = 2 * 1000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 25, spread: 360, ticks: 60, zIndex: 999 };
-
-    const interval = setInterval(() => {
-      const timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) return clearInterval(interval);
-
-      confetti(Object.assign({}, defaults, { origin: { x: 0.1, y: 0.5 } }));
-      confetti(Object.assign({}, defaults, { origin: { x: 0.9, y: 0.5 } }));
-    }, 200);
-  }
-
-  canvas.addEventListener('mousedown', e => {
-    const { offsetX, offsetY } = e;
-    for (const p of pieces) {
-      if (offsetX >= p.x && offsetX <= p.x + pieceW &&
-          offsetY >= p.y && offsetY <= p.y + pieceH) {
-        selected = p;
-        selected.offsetX = offsetX - p.x;
-        selected.offsetY = offsetY - p.y;
-        break;
-      }
-    }
-  });
-
-  canvas.addEventListener('mousemove', e => {
-    if (selected) {
-      selected.x = e.offsetX - selected.offsetX;
-      selected.y = e.offsetY - selected.offsetY;
-      draw();
-    }
-  });
-
-  canvas.addEventListener('mouseup', () => {
-    if (selected) {
-      if (Math.abs(selected.x - selected.correctX) < 15 &&
-          Math.abs(selected.y - selected.correctY) < 15) {
-        selected.x = selected.correctX;
-        selected.y = selected.correctY;
-      }
-      selected = null;
-      draw();
-      if (checkSolved()) launchConfetti();
-    }
-  });
-      document.getElementById('resetBtn').addEventListener('click', () => {
-      for (const p of pieces) {
-        p.x = Math.random() * (canvas.width - pieceW);
-        p.y = Math.random() * (canvas.height - pieceH);
-      }
+        for (let y = 0; y < rows; y++) {
+          for (let x = 0; x < cols; x++) {
+            pieces.push({
+              sx: x * (img.width / cols),
+              sy: y * (img.height / rows),
+              x: Math.random() * (canvas.width - pieceW),
+              y: Math.random() * (canvas.height - pieceH),
+              correctX: x * pieceW,
+              correctY: y * pieceH
+            });
+          }
+        }
         draw();
+      };
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (const p of pieces) {
+          ctx.drawImage(img, p.sx, p.sy, img.width / cols, img.height / rows, p.x, p.y, pieceW, pieceH);
+          ctx.strokeRect(p.x, p.y, pieceW, pieceH);
+        }
+      }
+
+      function checkSolved() {
+        return pieces.every(p =>
+          Math.abs(p.x - p.correctX) < 5 && Math.abs(p.y - p.correctY) < 5
+        );
+      }
+
+      function launchConfetti() {
+        const duration = 2 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 25, spread: 360, ticks: 60, zIndex: 999 };
+
+        const interval = setInterval(() => {
+          const timeLeft = animationEnd - Date.now();
+
+          if (timeLeft <= 0) return clearInterval(interval);
+
+          confetti(Object.assign({}, defaults, { origin: { x: 0.1, y: 0.5 } }));
+          confetti(Object.assign({}, defaults, { origin: { x: 0.9, y: 0.5 } }));
+        }, 200);
+      }
+
+      canvas.addEventListener('mousedown', e => {
+        const { offsetX, offsetY } = e;
+        for (const p of pieces) {
+          if (offsetX >= p.x && offsetX <= p.x + pieceW &&
+              offsetY >= p.y && offsetY <= p.y + pieceH) {
+            selected = p;
+            selected.offsetX = offsetX - p.x;
+            selected.offsetY = offsetY - p.y;
+            break;
+          }
+        }
       });
+
+      canvas.addEventListener('mousemove', e => {
+        if (selected) {
+          selected.x = e.offsetX - selected.offsetX;
+          selected.y = e.offsetY - selected.offsetY;
+          draw();
+        }
+      });
+
+      canvas.addEventListener('mouseup', () => {
+        if (selected) {
+          if (Math.abs(selected.x - selected.correctX) < 15 &&
+              Math.abs(selected.y - selected.correctY) < 15) {
+            selected.x = selected.correctX;
+            selected.y = selected.correctY;
+          }
+          selected = null;
+          draw();
+          if (checkSolved()) launchConfetti();
+        }
+      });
+          document.getElementById('resetBtn').addEventListener('click', () => {
+          for (const p of pieces) {
+            p.x = Math.random() * (canvas.width - pieceW);
+            p.y = Math.random() * (canvas.height - pieceH);
+          }
+            draw();
+          });
       </script>
       <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
