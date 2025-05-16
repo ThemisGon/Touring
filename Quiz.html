@@ -806,6 +806,7 @@ wrapper.appendChild(submitBtn);
     function checkQuizAnswers() {
     const wrapper = document.getElementById("quizWrapper");
     const allQuestions = wrapper.querySelectorAll("div.mb-4");
+    
     let score = 0;
 
     allQuestions.forEach((qBlock, index) => {
@@ -824,6 +825,100 @@ wrapper.appendChild(submitBtn);
     result.className = "mt-3 fw-bold";
     result.textContent = `Σκορ: ${score}/${allQuestions.length}`;
     wrapper.appendChild(result);
+    // Αν είναι ιστορία και πήρε πάνω από 10
+    const unlockMsg = document.createElement("div");
+    unlockMsg.className = "alert alert-info mt-3";
+
+    
+    if (selectedCategory === "History" && score >= 10) {
+      const user = JSON.parse(localStorage.getItem('user')) || {};
+      user.historyUnlocked = true;
+      
+      localStorage.setItem('user', JSON.stringify(user));
+      unlockMsg.innerHTML = `
+        🎉 <strong>Συγχαρητήρια!</strong> Ξεκλείδωσες νέες πληροφορίες στο κομμάτι της <b>Ιστορίας</b>! 
+        <br>👉 Μπορείς να τις βρεις στη σελίδα <a href="history.html">History</a>.
+      `;
+      wrapper.appendChild(unlockMsg);
+       
+      setTimeout(() => {
+        window.location.href = "history.html";
+      }, 2000);
+    } else if (selectedCategory === "History") {
+      const user = JSON.parse(localStorage.getItem('user')) || {};
+      user.historyUnlocked = false;
+      localStorage.setItem('user', JSON.stringify(user));
+      unlockMsg.innerHTML = `
+        ⚠️ <strong>Διάβασε πάλι..</strong> Προσπάθησε να κάνεις σωστές πάνω από 10 ερωτήσεις για να ξεκλειδώσεις νέες πληροφορίες!
+      `;
+      wrapper.appendChild(unlockMsg);
+
+  // ❗ Μεταφορά πίσω στη σελίδα της κατηγορίας
+  const redirectMap = {
+    History: "history.html",
+    Architecture: "architecture.html",
+    Treasures: "treasures.html",
+    Paths: "paths.html"
+  };
+
+  setTimeout(() => {
+    // 🔁 Πλήρες reload αν είμαστε ήδη στη σελίδα
+    if (window.location.pathname.includes("history.html")) {
+      window.location.reload();
+    } else {
+      window.location.href = "history.html";
+    }
+  }, 2000);
+    }
+    
+    localStorage.setItem('user', JSON.stringify(user));
+    wrapper.appendChild(unlockMsg);
+
+    // Αν είναι αρχιτεκτονική και πήρε πάνω από 10    
+    if (selectedCategory === "Architecture" && score >= 10) {
+      user = JSON.parse(localStorage.getItem('user')) || {};
+      user.architectureUnlocked = true;
+      
+      localStorage.setItem('user', JSON.stringify(user));
+      unlockMsg.innerHTML = `
+        🎉 <strong>Συγχαρητήρια!</strong> Ξεκλείδωσες νέες πληροφορίες στο κομμάτι της <b>Architecture</b>! 
+        <br>👉 Μπορείς να τις βρεις στη σελίδα <a href="history.html">History</a>.
+      `;
+      wrapper.appendChild(unlockMsg);
+       
+      setTimeout(() => {
+        window.location.href = "architecture.html";
+      }, 2000);
+    } else {
+      user = JSON.parse(localStorage.getItem('user')) || {};
+      user.architectureUnlocked = false;
+      localStorage.setItem('user', JSON.stringify(user));
+      unlockMsg.innerHTML = `
+        ⚠️ <strong>Study more..</strong> Try to get more than 10 questions right to unlock new information!
+      `;
+      wrapper.appendChild(unlockMsg);
+
+  // ❗ Μεταφορά πίσω στη σελίδα της κατηγορίας
+  const redirectMap = {
+    History: "history.html",
+    Architecture: "architecture.html",
+    Treasures: "treasures.html",
+    Paths: "paths.html"
+  };
+
+  setTimeout(() => {
+    // 🔁 Πλήρες reload αν είμαστε ήδη στη σελίδα
+    if (window.location.pathname.includes("architecture.html")) {
+      window.location.reload();
+    } else {
+      window.location.href = "architecture.html";
+    }
+  }, 2000);
+    }
+    
+    localStorage.setItem('user', JSON.stringify(user));
+    wrapper.appendChild(unlockMsg);
+
 
     const user = JSON.parse(localStorage.getItem('user'));
     const urlParams = new URLSearchParams(window.location.search);

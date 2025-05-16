@@ -114,6 +114,30 @@ app.post('/api/save-score', async (req, res) => {
     res.status(500).json({ message: 'Σφάλμα διακομιστή' });
   }
 });
+// 🔸 Επιστροφή score χρήστη για συγκεκριμένη κατηγορία
+app.get('/api/get-score', async (req, res) => {
+  const { email, category } = req.query;
+
+  const allowed = ['history', 'architecture', 'treasures', 'paths', 'quiz'];
+  if (!allowed.includes(category)) {
+    return res.status(400).json({ message: 'Μη έγκυρη κατηγορία' });
+  }
+
+  try {
+    const column = category === 'quiz' ? 'quiz_score' : `score_${category}`;
+    const query = `SELECT ${column} AS score FROM users WHERE email = ?`;
+    const [rows] = await pool.query(query, [email]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: 'Χρήστης δεν βρέθηκε' });
+    }
+
+    res.json({ score: rows[0].score || 0 });
+  } catch (err) {
+    console.error("Σφάλμα κατά το fetch score:", err);
+    res.status(500).json({ message: 'Σφάλμα διακομιστή' });
+  }
+});
 
 // ---------------------- HTML ------------------------
 
