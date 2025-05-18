@@ -830,7 +830,7 @@ wrapper.appendChild(submitBtn);
   result.textContent = `Σκορ: ${score}/${allQuestions.length}`;
   wrapper.appendChild(result);
 
-  // === Ιστορία ===
+  // === History ===
   if (selectedCategory === "History" && score >= 10) {
     user.historyUnlocked = true;
     localStorage.setItem('user', JSON.stringify(user));
@@ -863,7 +863,7 @@ wrapper.appendChild(submitBtn);
     }, 2000);
   }
 
-  // === Αρχιτεκτονική ===
+  // === Architecture ===
   if (score >= 10 && selectedCategory === "Architecture") {
   const unlockMsg = document.createElement("div");
   unlockMsg.className = "alert alert-info mt-3";
@@ -899,6 +899,65 @@ wrapper.appendChild(submitBtn);
     }
   }, 2000);
 }
+  // === Treasures ===
+    if (score >= 10 && selectedCategory === "Treasures") {
+    const unlockMsg = document.createElement("div");
+    unlockMsg.className = "alert alert-info mt-3";
+    unlockMsg.innerHTML = `
+    🎉 <strong>Congratulations!</strong> You did amazing!<br>
+      Keep up the good work! 
+    `;
+    wrapper.appendChild(unlockMsg);
+    setTimeout(() => {
+      window.location.href = "treasures.html";
+    }, 2000);
+  } else if (selectedCategory === "Treasures") {
+    const failMsg = document.createElement("div");
+    failMsg.className = "alert alert-warning mt-3";
+    failMsg.innerHTML = `
+      ⚠️ <strong>Study more..</strong> Try to get more than 10 questions right to unlock new information!
+    `;
+    wrapper.appendChild(failMsg);
+
+    setTimeout(() => {
+      if (window.location.pathname.includes("treasures.html")) {
+        window.location.reload();
+      } else {
+        window.location.href = "treasures.html";
+      }
+    }, 2000);
+  }
+
+  // === Path ===
+    if (score >= 10 && selectedCategory === "Paths") {
+    const unlockMsg = document.createElement("div");
+    unlockMsg.className = "alert alert-info mt-3";
+    unlockMsg.innerHTML = `
+    🎉 <strong>Congratulations!</strong> You did amazing!<br>
+      Keep up the good work! 
+    `;
+    wrapper.appendChild(unlockMsg);
+
+    setTimeout(() => {
+      window.location.href = "paths.html";
+    }, 2000);
+  } else if (selectedCategory === "Paths") {
+    const failMsg = document.createElement("div");
+    failMsg.className = "alert alert-warning mt-3";
+    failMsg.innerHTML = `
+      ⚠️ <strong>Study more..</strong> Try to get more than 10 questions right to unlock new information!
+    `;
+    wrapper.appendChild(failMsg);
+
+
+    setTimeout(() => {
+      if (window.location.pathname.includes("paths.html")) {
+        window.location.reload();
+      } else {
+        window.location.href = "paths.html";
+      }
+    }, 2000);
+  }
 
 
   // === Τέλος: αποθήκευση score ===
