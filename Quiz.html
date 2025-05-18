@@ -87,23 +87,23 @@
                   <div class="text-center mb-3">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input quiz-option" type="checkbox" value="History" id="history">
-                      <label class="form-check-label" for="history">History</label>
+                      <label class="form-check-label" for="history"><b>History</b></label>
                     </div>
                   <div class="form-check form-check-inline">
                     <input class="form-check-input quiz-option" type="checkbox" value="Architecture" id="architecture">
-                    <label class="form-check-label" for="architecture">Architecture</label>
+                    <label class="form-check-label" for="architecture"><b>Architecture</b></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input quiz-option" type="checkbox" value="Treasures" id="treasures">
-                        <label class="form-check-label" for="treasures">Treasures</label>
+                        <label class="form-check-label" for="treasures"><b>Treasures</b></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input quiz-option" type="checkbox" value="Paths" id="paths">
-                        <label class="form-check-label" for="paths">Paths</label>
+                        <label class="form-check-label" for="paths"><b>Paths</b></label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="mode" value="random" id="randomMode">
-                        <label class="form-check-label" for="randomMode">Random</label>
+                        <label class="form-check-label" for="randomMode"><b>Random 4 Questions</b></label>
                     </div>
                 </div>
                 <div class="text-center mb-4">
@@ -751,6 +751,9 @@
     const wrapper = document.getElementById("quizWrapper");
     wrapper.innerHTML = "";
 
+    quizQuestions = []; // ✅ Καθαρισμός προηγούμενων ερωτήσεων
+
+
     let selected = [];
 
     if (forcedCategory) {
@@ -1300,7 +1303,23 @@ function startAdaptiveQuiz() {
   showAdaptiveQuestion(category);
 }
 
+ // Επιτρέπει την απο-επιλογή του radio "Random"
+  document.addEventListener("DOMContentLoaded", () => {
+    const randomRadio = document.getElementById("randomMode");
+    let wasChecked = false;
 
+    randomRadio.addEventListener("mousedown", function (e) {
+      wasChecked = randomRadio.checked;
+    });
+
+    randomRadio.addEventListener("click", function (e) {
+      if (wasChecked) {
+        randomRadio.checked = false;
+        wasChecked = false;
+        e.preventDefault(); // αποτρέπει να ξαναεπιλεχθεί
+      }
+    });
+  });
       </script>
 
       
