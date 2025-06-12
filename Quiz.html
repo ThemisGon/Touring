@@ -918,7 +918,7 @@ wrapper.appendChild(submitBtn);
     const failMsg = document.createElement("div");
     failMsg.className = "alert alert-warning mt-3";
     failMsg.innerHTML = `
-      ⚠️ <strong>Study more..</strong> Try to get more than 10 questions right to unlock new information!
+      ⚠️ <strong>Study more..</strong> Try to get more than 10 questions right!
     `;
     wrapper.appendChild(failMsg);
 
@@ -948,7 +948,7 @@ wrapper.appendChild(submitBtn);
     const failMsg = document.createElement("div");
     failMsg.className = "alert alert-warning mt-3";
     failMsg.innerHTML = `
-      ⚠️ <strong>Study more..</strong> Try to get more than 10 questions right to unlock new information!
+      ⚠️ <strong>Study more..</strong> Try to get more than 10 questions right!
     `;
     wrapper.appendChild(failMsg);
 
@@ -1009,7 +1009,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const quizId = urlParams.get("id");
 
     if (quizId) {
-       selectedCategory = quizId; // ✅ Αποθήκευσέ το παγκόσμια
+       selectedCategory = quizId; 
        document.getElementById("quizOptions").style.display = "none";
         const optionsSection = document.getElementById("quizOptions");
         if (optionsSection) {

@@ -224,16 +224,15 @@ To this day, their mythical bloodlines linger. The people of the islands, shaped
       <!-- Κώδικας για το slideshow-->
       <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
         const user = JSON.parse(localStorage.getItem('user')) || {};
-        if (user.architectureUnlocked) {
+        if (user.historyUnlocked) {
           const extraContent = document.getElementById("historyBonus");
           if (extraContent) {
             extraContent.style.display = "block";
           }
-        }
-      });
-</script>
+        }});
+      </script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
     </body>
