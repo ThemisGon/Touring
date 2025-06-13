@@ -5,17 +5,15 @@ import pool from './db.js';
 
 const app = express();
 
-// Middleware για JSON parsing
+//Middleware για JSON parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Στατικά αρχεία
+//Στατικά αρχεία
 app.use('/images', express.static('images'));
 app.use(express.static(path.join(process.cwd())));
 
-// ---------------------- API ------------------------
-
-// 🔸 Δοκιμαστικό endpoint
+//Δοκιμαστικό endpoint
 app.get('/api/notes', async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM notes");
@@ -26,7 +24,7 @@ app.get('/api/notes', async (req, res) => {
   }
 });
 
-// 🔸 Εγγραφή
+//Εγγραφή
 app.post('/api/register', async (req, res) => {
   const { full_name, email, password } = req.body;
 
@@ -52,7 +50,7 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// 🔸 Σύνδεση
+//Σύνδεση
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -73,7 +71,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// 🔸 Επιστροφή στοιχείων χρήστη
+//Επιστροφή στοιχείων χρήστη
 app.post('/api/user', async (req, res) => {
   const { email } = req.body;
 
@@ -94,7 +92,7 @@ app.post('/api/user', async (req, res) => {
   }
 });
 
-// 🔸 Αποθήκευση σκορ
+//Αποθήκευση σκορ
 app.post('/api/save-score', async (req, res) => {
   const { email, category, score } = req.body;
 
@@ -114,7 +112,7 @@ app.post('/api/save-score', async (req, res) => {
     res.status(500).json({ message: 'Σφάλμα διακομιστή' });
   }
 });
-// 🔸 Επιστροφή score χρήστη για συγκεκριμένη κατηγορία
+//Επιστροφή score χρήστη για συγκεκριμένη κατηγορία
 app.get('/api/get-score', async (req, res) => {
   const { email, category } = req.query;
 
@@ -139,7 +137,7 @@ app.get('/api/get-score', async (req, res) => {
   }
 });
 
-// ---------------------- HTML ------------------------
+//HTML
 
 app.get('/', async (req, res) => {
   try {
@@ -151,9 +149,9 @@ app.get('/', async (req, res) => {
   }
 });
 
-// ---------------------- Server ------------------------
+//Server
 
 const PORT = process.env.PORT || 3003;
 app.listen(PORT, () =>
-  console.log(`🚀 App running at http://localhost:${PORT}`)
+  console.log(`App running at http://localhost:${PORT}`)
 );

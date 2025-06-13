@@ -148,14 +148,14 @@
 
       <!-- Κώδικας για το slideshow-->
       <script>
-      let currentLevel = "easy"; // ξεκινάμε από εύκολο
+      let currentLevel = "easy";
       let correctStreak = 0;
       let wrongStreak = 0;
       let answeredQuestions = [];
       var quizQuestions = [];
       let selectedCategory = null;
-      let lastAnswers = {}; // για να κρατάμε τις απαντήσεις του χρήστη
-      let lastQuestion = null; // ✅ θα κρατάμε την τελευταία ερώτηση
+      let lastAnswers = {};
+      let lastQuestion = null; 
 
 
       function allowDrop(ev) {
@@ -751,7 +751,7 @@
     const wrapper = document.getElementById("quizWrapper");
     wrapper.innerHTML = "";
 
-    quizQuestions = []; // ✅ Καθαρισμός προηγούμενων ερωτήσεων
+    quizQuestions = [];
 
 
     let selected = [];
@@ -782,7 +782,6 @@
     });
 }
 
-// 👉 Εδώ κάνεις μία και μοναδική εμφάνιση ερωτήσεων:
 quizQuestions.forEach((q, index) => {
     const qBlock = document.createElement("div");
     qBlock.className = "mb-4";
@@ -963,7 +962,7 @@ wrapper.appendChild(submitBtn);
   }
 
 
-  // === Τέλος: αποθήκευση score ===
+  //αποθήκευση score
   const urlParams = new URLSearchParams(window.location.search);
   const quizCategory = urlParams.get("id")?.toLowerCase();
 
@@ -978,14 +977,13 @@ wrapper.appendChild(submitBtn);
       })
     })
     .then(res => res.json())
-    .then(result => console.log("✅ Quiz score αποθηκεύτηκε:", result.message))
-    .catch(err => console.error("❌ Σφάλμα αποθήκευσης:", err));
+    .then(result => console.log("Quiz score αποθηκεύτηκε:", result.message))
+    .catch(err => console.error("Σφάλμα αποθήκευσης:", err));
   }
 }
 
 
 function getCorrectAnswerIndex(index) {
-    // Συσχετίζει το index με το quizQuestions
     return quizQuestions[index]?.correct ?? -1;
 }
 
@@ -1031,7 +1029,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const q = unused[Math.floor(Math.random() * unused.length)];
   answeredQuestions.push(q.q);
-  return { question: q, level: currentLevel }; // 🔹 Επιστρέφει και το επίπεδο
+  return { question: q, level: currentLevel };
 }
 
 function handleAnswer(isCorrect) {
@@ -1087,7 +1085,7 @@ function submitAnswer(correctIndex, category) {
 
   const isCorrect = parseInt(selected.value) === correctIndex;
 
-  // 🔄 Ενημέρωση λογικής προσαρμογής
+  //Ενημέρωση λογικής προσαρμογής
   if (isCorrect) {
     correctStreak++;
     wrongStreak = 0;
@@ -1197,7 +1195,6 @@ function showAdaptiveSummary(category) {
     }
   });
 
-  // Αστέρια βάσει σωστών
   let Message =""
   let stars = "";
   if (correctCount >= 6) stars = "⭐⭐⭐⭐⭐", Message ="Perfect!";
@@ -1242,7 +1239,7 @@ function submitAnswer(correctIndex, category) {
   if (!selected) return;
 
   if (lastQuestion) {
-  lastAnswers[lastQuestion.q] = parseInt(selected.value); // ✅ αποθηκεύει τι απάντησε
+  lastAnswers[lastQuestion.q] = parseInt(selected.value);
 }
   const isCorrect = parseInt(selected.value) === correctIndex;
   handleAnswer(isCorrect);
@@ -1264,12 +1261,12 @@ function startAdaptiveQuiz() {
   const urlParams = new URLSearchParams(window.location.search);
   const categoryFromUrl = urlParams.get("id");
 
-  // 1️⃣ Αν υπάρχει στο URL και είναι έγκυρο
+  //Αν υπάρχει στο URL και είναι έγκυρο
   if (categoryFromUrl && questions[categoryFromUrl]) {
     category = categoryFromUrl;
   }
 
-  // 2️⃣ Αν δεν υπάρχει στο URL, πάρε από checkbox
+  //Αν δεν υπάρχει στο URL, πάρε από checkbox
   if (!category) {
     const checked = document.querySelector(".quiz-option:checked");
     if (checked) {
@@ -1277,7 +1274,7 @@ function startAdaptiveQuiz() {
     }
   }
 
-  // 3️⃣ Αν δεν έχει καμία επιλογή, alert
+  //Αν δεν έχει καμία επιλογή, alert
   if (!category) {
     alert("⚠️ Παρακαλώ επίλεξε κατηγορία!");
     return;
@@ -1298,12 +1295,10 @@ function startAdaptiveQuiz() {
 
   updateAdaptiveProgress();
 
-  // ✅ Τώρα είναι ασφαλές
-  console.log("✅ Adaptive ξεκινά για:", category);
+  console.log("Adaptive ξεκινά για:", category);
   showAdaptiveQuestion(category);
 }
 
- // Επιτρέπει την απο-επιλογή του radio "Random"
   document.addEventListener("DOMContentLoaded", () => {
     const randomRadio = document.getElementById("randomMode");
     let wasChecked = false;
@@ -1316,7 +1311,7 @@ function startAdaptiveQuiz() {
       if (wasChecked) {
         randomRadio.checked = false;
         wasChecked = false;
-        e.preventDefault(); // αποτρέπει να ξαναεπιλεχθεί
+        e.preventDefault();
       }
     });
   });

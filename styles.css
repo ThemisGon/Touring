@@ -14,7 +14,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0px; /* μικρή απόσταση μεταξύ εικόνας και text */
+  gap: 0px;
 }
 
 .login-link {
@@ -23,7 +23,6 @@ body{
   align-items: center;
   text-decoration: none;
   color: inherit;
-   /* Απόσταση εικόνας - κειμένου */
 }
 
 /* Κρύβει το κείμενο αρχικά */
@@ -31,13 +30,13 @@ body{
   opacity: 0;
   transition: opacity 0.3s ease;
   font-size: 0.9rem;
-  margin: 0; /* σιγουριά για μηδενικά περιθώρια */
+  margin: 0;
   padding: 0;
 }
 
 /* Αλλαγές όταν κάνεις hover στην εικόνα */
 .logo-container:hover .logo {
-  transform: scale(0.85);/* Μικραίνει την εικόνα */
+  transform: scale(0.85);
 }
 
 /* Εμφάνιση του κειμένου με hover */

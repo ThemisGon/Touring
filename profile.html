@@ -211,7 +211,7 @@
           document.getElementById('scorePaths').textContent = paths;
 
           document.getElementById('userInfo').style.display = 'block';
-          // ✅ Προληπτικός έλεγχος για το #historyBonus (υπάρχει μόνο σε history.html)
+          //Προληπτικός έλεγχος για το #historyBonus (υπάρχει μόνο σε history.html)
           const bonus = document.getElementById('historyBonus');
           if (history >= 10 && bonus) {
             bonus.style.display = 'block';
@@ -247,7 +247,7 @@
               );
             }
           } catch (err) {
-            console.error('❌ Σφάλμα κατά τη φόρτωση χρήστη:', err);
+            console.error('Σφάλμα κατά τη φόρτωση χρήστη:', err);
           }
         }
       });
@@ -256,7 +256,7 @@
         <script>
         function logout() {
             localStorage.removeItem('user');
-            location.reload(); // ή: window.location.href = 'profile.html';
+            location.reload();
         }
         </script>
 
